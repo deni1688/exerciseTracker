@@ -8,5 +8,5 @@ func main() {
 	newApi(r).
 		InitExerciseApi().
 		InitWeightApi().
-		Engine.Run()
+		Run()
 }
