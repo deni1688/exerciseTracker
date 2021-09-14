@@ -8,5 +8,6 @@ func main() {
 	newApi(r).
 		InitExerciseApi().
 		InitWeightApi().
+		InitNutritionApi().
 		Run()
 }

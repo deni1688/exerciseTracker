@@ -17,13 +17,13 @@ func (a *api) Run() {
 func (a *api) InitExerciseApi() *api {
 	a.Engine.GET("/exercises", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "noImplemented",
+			"message": "notImplmented",
 		})
 	})
 
 	a.Engine.POST("/exercises", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "noImplemented",
+			"message": "notImplmented",
 		})
 	})
 
@@ -33,13 +33,29 @@ func (a *api) InitExerciseApi() *api {
 func (a *api) InitWeightApi() *api {
 	a.Engine.GET("/weight", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "noImplemented",
+			"message": "notImplmented",
 		})
 	})
 
 	a.Engine.POST("/weight", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "noImplemented",
+			"message": "notImplmented",
+		})
+	})
+
+	return a
+}
+
+func (a *api) InitNutritionApi() *api {
+	a.Engine.GET("/nutrition", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "notImplmented",
+		})
+	})
+
+	a.Engine.POST("/nutrition", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "notImplmented",
 		})
 	})
 
