@@ -3,11 +3,9 @@ package main
 import "github.com/gin-gonic/gin"
 
 func main() {
-	r := gin.Default()
-
-	newApi(r).
-		InitExerciseApi().
-		InitWeightApi().
-		InitNutritionApi().
+	newApi(gin.Default()).
+		InitExerciseApi(GetHandlersFor("exercises")).
+		InitWeightApi(GetHandlersFor("weight")).
+		InitNutritionApi(GetHandlersFor("nutrition")).
 		Run()
 }
