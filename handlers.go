@@ -55,12 +55,12 @@ type nutritionHandlers struct {
 
 func (h *nutritionHandlers) HandleCreate(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleCreateWeight not implmented",
+		"message": "HandleCreateNutrition not implmented",
 	})
 }
 
 func (h *nutritionHandlers) HandleGetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleGetAllWeight not implmented",
+		"message": "HandleGetAllNutrition not implmented",
 	})
 }
