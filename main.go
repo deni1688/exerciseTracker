@@ -1,11 +1,15 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"deni1688/myHealthTrack/rest"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	newApi(gin.Default()).
-		InitExerciseApi(GetHandlersFor("exercises")).
-		InitWeightApi(GetHandlersFor("weight")).
-		InitNutritionApi(GetHandlersFor("nutrition")).
+	rest.New(gin.Default()).
+		InitExerciseRoutes(rest.GetHandlersFor("exercises")).
+		InitWeightRoutes(rest.GetHandlersFor("weight")).
+		InitNutritionRoutes(rest.GetHandlersFor("nutrition")).
 		Run()
 }
