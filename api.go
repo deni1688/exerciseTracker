@@ -18,6 +18,7 @@ func (a *api) InitExerciseApi(h Handlers) *api {
 	basePath := "/exercises"
 	a.engine.GET(basePath, h.HandleGetAll)
 	a.engine.POST("/exercises", h.HandleCreate)
+	a.engine.GET("/exercises/:id", h.HandleGetOne)
 	return a
 }
 
