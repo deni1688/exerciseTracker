@@ -1,11 +1,5 @@
 package domain
 
-type Service interface {
-	FindAll(entity string, query string) []interface{}
-	FindOne(entity string, id string) interface{}
-	Create(entity string, object interface{}) bool
-}
-
 func NewService() Service {
 	return &myHealthTrackService{}
 }
