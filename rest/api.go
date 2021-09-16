@@ -10,8 +10,8 @@ func New(engine *gin.Engine) *api {
 	return &api{engine}
 }
 
-func (a *api) Run(addr string) {
-	a.engine.Run(addr)
+func (a *api) Run(addr string) error {
+	return a.engine.Run(addr)
 }
 
 func (a *api) InitExerciseRoutes(h Handlers) *api {
