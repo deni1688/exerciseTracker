@@ -2,7 +2,7 @@ package rest
 
 import "deni1688/myHealthTrack/domain"
 
-func GetHandlersFor(entity string, service domain.Service) Handlers {
+func CreateHandlersFor(entity string, service domain.Service) Handlers {
 	dh := &defaultHandlers{service, entity}
 
 	handlers, found := map[string]Handlers{

@@ -17,9 +17,9 @@ func main() {
 	s := domain.NewService()
 
 	if err := rest.New(gin.Default()).
-		InitExerciseRoutes(rest.GetHandlersFor("exercise", s)).
-		InitWeightRoutes(rest.GetHandlersFor("weight", s)).
-		InitNutritionRoutes(rest.GetHandlersFor("nutrition", s)).
+		InitExerciseRoutes(rest.CreateHandlersFor("exercise", s)).
+		InitWeightRoutes(rest.CreateHandlersFor("weight", s)).
+		InitNutritionRoutes(rest.CreateHandlersFor("nutrition", s)).
 		Run(":9090"); err != nil {
 		log.Fatal("Error starting the rest service:", err)
 	}
