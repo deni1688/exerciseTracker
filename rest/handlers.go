@@ -1,6 +1,10 @@
 package rest
 
-import "github.com/gin-gonic/gin"
+import (
+	"deni1688/myHealthTrack/domain"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Handlers interface {
 	HandleCreate(c *gin.Context)
@@ -8,32 +12,34 @@ type Handlers interface {
 	HandleGetOne(c *gin.Context)
 }
 
-type DefaultHandlers struct {
+type defaultHandlers struct {
+	service domain.Service
 }
 
-func (h *DefaultHandlers) HandleCreate(c *gin.Context) {
+func (h *defaultHandlers) HandleCreate(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "HandleCreate not implmented",
 	})
 }
 
-func (h *DefaultHandlers) HandleGetAll(c *gin.Context) {
+func (h *defaultHandlers) HandleGetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "HandleGetAll not implmented",
 	})
 }
 
-func (h *DefaultHandlers) HandleGetOne(c *gin.Context) {
+func (h *defaultHandlers) HandleGetOne(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "HandleGetOne not implmented",
 	})
 }
 
 type exerciseHandlers struct {
-	*DefaultHandlers
+	*defaultHandlers
 }
 
 func (h *exerciseHandlers) HandleCreate(c *gin.Context) {
+
 	c.JSON(200, gin.H{
 		"message": "HandleCreateExercise not implmented",
 	})
@@ -46,7 +52,7 @@ func (h *exerciseHandlers) HandleGetAll(c *gin.Context) {
 }
 
 type weightHandlers struct {
-	*DefaultHandlers
+	*defaultHandlers
 }
 
 func (h *weightHandlers) HandleCreate(c *gin.Context) {
@@ -62,7 +68,7 @@ func (h *weightHandlers) HandleGetAll(c *gin.Context) {
 }
 
 type nutritionHandlers struct {
-	*DefaultHandlers
+	*defaultHandlers
 }
 
 func (h *nutritionHandlers) HandleCreate(c *gin.Context) {
@@ -77,15 +83,15 @@ func (h *nutritionHandlers) HandleGetAll(c *gin.Context) {
 	})
 }
 
-func GetHandlersFor(handlers string) Handlers {
+func GetHandlersFor(handlers string, service domain.Service) Handlers {
 	switch handlers {
 	case "exercises":
-		return &exerciseHandlers{}
+		return &exerciseHandlers{&defaultHandlers{service}}
 	case "weight":
-		return &weightHandlers{}
+		return &weightHandlers{&defaultHandlers{service}}
 	case "nutrition":
-		return &nutritionHandlers{}
+		return &nutritionHandlers{&defaultHandlers{service}}
 	default:
-		return nil
+		return &defaultHandlers{service}
 	}
 }
