@@ -8,6 +8,7 @@ import (
 
 type defaultHandlers struct {
 	service domain.Service
+	entity  string
 }
 
 func (h *defaultHandlers) HandleCreate(c *gin.Context) {

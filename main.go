@@ -17,7 +17,7 @@ func main() {
 	s := domain.NewService()
 
 	if err := rest.New(gin.Default()).
-		InitExerciseRoutes(rest.GetHandlersFor("exercises", s)).
+		InitExerciseRoutes(rest.GetHandlersFor("exercise", s)).
 		InitWeightRoutes(rest.GetHandlersFor("weight", s)).
 		InitNutritionRoutes(rest.GetHandlersFor("nutrition", s)).
 		Run(":9090"); err != nil {

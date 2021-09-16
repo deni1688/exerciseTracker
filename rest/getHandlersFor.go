@@ -2,11 +2,11 @@ package rest
 
 import "deni1688/myHealthTrack/domain"
 
-func GetHandlersFor(handlers string, service domain.Service) Handlers {
-	dh := &defaultHandlers{service}
+func GetHandlersFor(entity string, service domain.Service) Handlers {
+	dh := &defaultHandlers{service, entity}
 
-	switch handlers {
-	case "exercises":
+	switch entity {
+	case "exercise":
 		return &exerciseHandlers{dh}
 	case "weight":
 		return &weightHandlers{dh}

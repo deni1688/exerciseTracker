@@ -9,7 +9,6 @@ type exerciseHandlers struct {
 }
 
 func (h *exerciseHandlers) HandleCreate(c *gin.Context) {
-
 	c.JSON(200, gin.H{
 		"message": "HandleCreateExercise not implmented",
 	})

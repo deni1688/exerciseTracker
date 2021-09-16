@@ -26,6 +26,7 @@ func (a *api) InitWeightRoutes(h Handlers) *api {
 	basePath := "/weight"
 	a.engine.GET(basePath, h.HandleGetAll)
 	a.engine.POST(basePath, h.HandleCreate)
+	a.engine.GET(basePath+"/:id", h.HandleGetOne)
 	return a
 }
 
@@ -33,5 +34,6 @@ func (a *api) InitNutritionRoutes(h Handlers) *api {
 	basePath := "/nutrition"
 	a.engine.GET(basePath, h.HandleGetAll)
 	a.engine.POST(basePath, h.HandleCreate)
+	a.engine.GET(basePath+"/:id", h.HandleGetOne)
 	return a
 }
