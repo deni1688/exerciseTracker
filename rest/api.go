@@ -17,15 +17,15 @@ func (a *api) Run(addr string) {
 func (a *api) InitExerciseRoutes(h Handlers) *api {
 	basePath := "/exercises"
 	a.engine.GET(basePath, h.HandleGetAll)
-	a.engine.POST("/exercises", h.HandleCreate)
-	a.engine.GET("/exercises/:id", h.HandleGetOne)
+	a.engine.POST(basePath, h.HandleCreate)
+	a.engine.GET(basePath+"/:id", h.HandleGetOne)
 	return a
 }
 
 func (a *api) InitWeightRoutes(h Handlers) *api {
 	basePath := "/weight"
 	a.engine.GET(basePath, h.HandleGetAll)
-	a.engine.POST("/weight", h.HandleCreate)
+	a.engine.POST(basePath, h.HandleCreate)
 	return a
 }
 
