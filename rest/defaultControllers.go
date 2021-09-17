@@ -6,24 +6,24 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type defaultHandlers struct {
+type defaultController struct {
 	service tracker.Service
 	entity  string
 }
 
-func (h *defaultHandlers) HandleCreate(c *gin.Context) {
+func (h *defaultController) HandleCreate(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "HandleCreate not implmented",
 	})
 }
 
-func (h *defaultHandlers) HandleGetAll(c *gin.Context) {
+func (h *defaultController) HandleGetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "HandleGetAll not implmented",
 	})
 }
 
-func (h *defaultHandlers) HandleGetOne(c *gin.Context) {
+func (h *defaultController) HandleGetOne(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "HandleGetOne not implmented",
 	})
