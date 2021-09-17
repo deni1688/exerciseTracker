@@ -1,4 +1,4 @@
-package domain
+package tracker
 
 func NewService() Service {
 	return &myHealthTrackService{}

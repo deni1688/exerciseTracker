@@ -1,13 +1,13 @@
 package rest
 
 import (
-	"deni1688/myHealthTrack/domain"
+	"deni1688/myHealthTrack/tracker"
 
 	"github.com/gin-gonic/gin"
 )
 
 type defaultHandlers struct {
-	service domain.Service
+	service tracker.Service
 	entity  string
 }
 

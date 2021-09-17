@@ -1,8 +1,8 @@
 package rest
 
-import "deni1688/myHealthTrack/domain"
+import "deni1688/myHealthTrack/tracker"
 
-func CreateHandlersFor(entity string, service domain.Service) Handlers {
+func CreateHandlersFor(entity string, service tracker.Service) Handlers {
 	dh := &defaultHandlers{service, entity}
 
 	handlers, found := map[string]Handlers{

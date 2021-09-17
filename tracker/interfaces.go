@@ -1,4 +1,4 @@
-package domain
+package tracker
 
 type Service interface {
 	FindAll(entity string, query string) []interface{}

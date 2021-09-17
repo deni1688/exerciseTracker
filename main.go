@@ -1,7 +1,7 @@
 package main
 
 import (
-	"deni1688/myHealthTrack/domain"
+	"deni1688/myHealthTrack/tracker"
 	"deni1688/myHealthTrack/rest"
 	"log"
 
@@ -14,7 +14,7 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	s := domain.NewService()
+	s := tracker.NewService()
 
 	if err := rest.New(gin.Default()).
 		InitExerciseRoutes(rest.CreateHandlersFor("exercise", s)).
