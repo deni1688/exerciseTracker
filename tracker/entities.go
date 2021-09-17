@@ -6,5 +6,5 @@ type Exercise struct {
 type Weight struct {
 }
 
-type Nutrition struct {
+type Calories struct {
 }

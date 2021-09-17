@@ -17,9 +17,9 @@ func main() {
 	s := tracker.NewService()
 
 	if err := rest.New(gin.Default()).
-		InitExerciseRoutes(rest.CreateHandlersFor("exercise", s)).
-		InitWeightRoutes(rest.CreateHandlersFor("weight", s)).
-		InitNutritionRoutes(rest.CreateHandlersFor("nutrition", s)).
+		InitExerciseRoutes(rest.CreateControllerFor("exercise", s)).
+		InitWeightRoutes(rest.CreateControllerFor("weight", s)).
+		InitCaloriesRoutes(rest.CreateControllerFor("calories", s)).
 		Run(":9090"); err != nil {
 		log.Fatal("Error starting the rest service:", err)
 	}
