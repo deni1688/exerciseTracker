@@ -15,10 +15,10 @@ func NewResourceFactory(router *gin.Engine) ResourceFactory {
 }
 
 func (rf *resourceFactory) Create(entity string, ct Controller) {
-	rf.router.GET(resourceFromEntity(entity), ct.HandleGetAll)
-	rf.router.POST(resourceFromEntity(entity), ct.HandleCreate)
-	rf.router.GET(resourceFromEntity(entity, ":id"), ct.HandleGetOne)
-	rf.router.PUT(resourceFromEntity(entity, ":id"), ct.HandleUpdateOne)
+	rf.router.GET(resourceFromEntity(entity), ct.GetAll)
+	rf.router.POST(resourceFromEntity(entity), ct.Create)
+	rf.router.GET(resourceFromEntity(entity, ":id"), ct.GetOne)
+	rf.router.PUT(resourceFromEntity(entity, ":id"), ct.UpdateOne)
 }
 
 func resourceFromEntity(entity string, params ...string) string {

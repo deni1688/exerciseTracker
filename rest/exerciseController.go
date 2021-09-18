@@ -8,14 +8,14 @@ type exerciseController struct {
 	*defaultController
 }
 
-func (ct *exerciseController) HandleCreate(c *gin.Context) {
+func (ct *exerciseController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleCreateExercise not implmented",
+		"message": "CreateExercise not implmented",
 	})
 }
 
-func (ct *exerciseController) HandleGetAll(c *gin.Context) {
+func (ct *exerciseController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleGetAllExercises not implmented",
+		"message": "GetAllExercises not implmented",
 	})
 }

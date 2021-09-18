@@ -3,8 +3,8 @@ package rest
 import "github.com/gin-gonic/gin"
 
 type Controller interface {
-	HandleCreate(c *gin.Context)
-	HandleGetAll(c *gin.Context)
-	HandleGetOne(c *gin.Context)
-	HandleUpdateOne(c *gin.Context)
+	Create(c *gin.Context)
+	GetAll(c *gin.Context)
+	GetOne(c *gin.Context)
+	UpdateOne(c *gin.Context)
 }

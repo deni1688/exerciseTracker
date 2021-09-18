@@ -8,14 +8,14 @@ type weightController struct {
 	*defaultController
 }
 
-func (ct *weightController) HandleCreate(c *gin.Context) {
+func (ct *weightController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleCreateWeight not implmented",
+		"message": "CreateWeight not implmented",
 	})
 }
 
-func (ct *weightController) HandleGetAll(c *gin.Context) {
+func (ct *weightController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleGetAllWeight not implmented",
+		"message": "GetAllWeight not implmented",
 	})
 }

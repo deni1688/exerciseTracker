@@ -11,26 +11,26 @@ type defaultController struct {
 	entity  string
 }
 
-func (ct *defaultController) HandleCreate(c *gin.Context) {
+func (ct *defaultController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleCreate not implmented",
+		"message": "Create not implmented",
 	})
 }
 
-func (ct *defaultController) HandleGetAll(c *gin.Context) {
+func (ct *defaultController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleGetAll not implmented",
+		"message": "GetAll not implmented",
 	})
 }
 
-func (ct *defaultController) HandleGetOne(c *gin.Context) {
+func (ct *defaultController) GetOne(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleGetOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
+		"message": "GetOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
 	})
 }
 
-func (ct *defaultController) HandleUpdateOne(c *gin.Context) {
+func (ct *defaultController) UpdateOne(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleUpdateOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
+		"message": "UpdateOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
 	})
 }

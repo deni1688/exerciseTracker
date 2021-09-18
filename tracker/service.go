@@ -19,3 +19,7 @@ func (s *myHealthTrackService) FindOne(entity string, id string) interface{} {
 func (s *myHealthTrackService) Create(entity string, object interface{}) bool {
 	return false
 }
+
+func (s *myHealthTrackService) UpdateOne(entity string, id string, object interface{}) bool {
+	return false
+}
