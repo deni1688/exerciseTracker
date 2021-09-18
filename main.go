@@ -25,10 +25,7 @@ func main() {
 	resourceFactory.Create(tracker.WEIGHT, controllerFactory.Create(tracker.WEIGHT))
 	resourceFactory.Create(tracker.CALORIES, controllerFactory.Create(tracker.CALORIES))
 
-
-
 	if err := router.Run(os.Getenv("PORT")); err != nil {
 		log.Fatal("Error running server", err)
 	}
-
 }
