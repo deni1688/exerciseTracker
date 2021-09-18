@@ -1,6 +1,6 @@
 package tracker
 
-func NewService() Service {
+func NewTrackerService() Service {
 	return &myHealthTrackService{}
 }
 

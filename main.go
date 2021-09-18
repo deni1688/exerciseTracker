@@ -1,9 +1,10 @@
 package main
 
 import (
-	"deni1688/myHealthTrack/tracker"
 	"deni1688/myHealthTrack/rest"
+	"deni1688/myHealthTrack/tracker"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -14,14 +15,14 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	s := tracker.NewService()
+	ts := tracker.NewTrackerService()
+	cf := rest.NewControllerFactory(ts)
+	r := gin.Default()
+	rf := rest.NewRouteFactory(r)
 
-	if err := rest.New(gin.Default()).
-		InitExerciseRoutes(rest.CreateControllerFor("exercise", s)).
-		InitWeightRoutes(rest.CreateControllerFor("weight", s)).
-		InitCaloriesRoutes(rest.CreateControllerFor("calories", s)).
-		Run(":9090"); err != nil {
-		log.Fatal("Error starting the rest service:", err)
-	}
+	rf.Create(tracker.EXERCISE, cf.Create(tracker.EXERCISE))
+	rf.Create(tracker.WEIGHT, cf.Create(tracker.WEIGHT))
+	rf.Create(tracker.CALORIES, cf.Create(tracker.CALORIES))
 
+	r.Run(os.Getenv("PORT"))
 }
