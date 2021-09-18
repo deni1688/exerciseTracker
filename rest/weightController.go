@@ -10,12 +10,12 @@ type weightController struct {
 
 func (ct *weightController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "CreateWeight not implmented",
+		"message": "CreateWeight not implemented",
 	})
 }
 
 func (ct *weightController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "GetAllWeight not implmented",
+		"message": "GetAllWeight not implemented",
 	})
 }

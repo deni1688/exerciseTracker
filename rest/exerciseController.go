@@ -10,12 +10,12 @@ type exerciseController struct {
 
 func (ct *exerciseController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "CreateExercise not implmented",
+		"message": "CreateExercise not implemented",
 	})
 }
 
 func (ct *exerciseController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "GetAllExercises not implmented",
+		"message": "GetAllExercises not implemented",
 	})
 }

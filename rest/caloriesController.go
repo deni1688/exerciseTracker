@@ -10,12 +10,12 @@ type caloriesController struct {
 
 func (ct *caloriesController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "CreateCalories not implmented",
+		"message": "CreateCalories not implemented",
 	})
 }
 
 func (ct *caloriesController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "GetAllCalories not implmented",
+		"message": "GetAllCalories not implemented",
 	})
 }

@@ -13,24 +13,24 @@ type defaultController struct {
 
 func (ct *defaultController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "Create not implmented",
+		"message": "Create not implemented for " + ct.entity,
 	})
 }
 
 func (ct *defaultController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "GetAll not implmented",
+		"message": "GetAll not implemented " + ct.entity,
 	})
 }
 
 func (ct *defaultController) GetOne(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "GetOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
+		"message": "GetOne not implemented for /" + ct.entity + "/" + c.Params.ByName("id"),
 	})
 }
 
 func (ct *defaultController) UpdateOne(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "UpdateOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
+		"message": "UpdateOne not implemented for /" + ct.entity + "/" + c.Params.ByName("id"),
 	})
 }
