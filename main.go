@@ -15,14 +15,15 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	ts := tracker.NewTrackerService()
-	cf := rest.NewControllerFactory(ts)
-	r := gin.Default()
-	rf := rest.NewRouteFactory(r)
+	router := gin.Default()
 
-	rf.Create(tracker.EXERCISE, cf.Create(tracker.EXERCISE))
-	rf.Create(tracker.WEIGHT, cf.Create(tracker.WEIGHT))
-	rf.Create(tracker.CALORIES, cf.Create(tracker.CALORIES))
+	trackingService := tracker.NewTrackerService()
+	controllerFactory := rest.NewControllerFactory(trackingService)
+	resourceFactory := rest.NewResourceFactory(router)
 
-	r.Run(os.Getenv("PORT"))
+	resourceFactory.Create(tracker.EXERCISE, controllerFactory.Create(tracker.EXERCISE))
+	resourceFactory.Create(tracker.WEIGHT, controllerFactory.Create(tracker.WEIGHT))
+	resourceFactory.Create(tracker.CALORIES, controllerFactory.Create(tracker.CALORIES))
+
+	router.Run(os.Getenv("PORT"))
 }

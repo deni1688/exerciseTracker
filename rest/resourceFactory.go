@@ -2,19 +2,19 @@ package rest
 
 import "github.com/gin-gonic/gin"
 
-type RouteFactory interface {
+type ResourceFactory interface {
 	Create(entity string, ct Controller)
 }
 
-type routeFactory struct {
+type resourceFactory struct {
 	router *gin.Engine
 }
 
-func NewRouteFactory(router *gin.Engine) RouteFactory {
-	return &routeFactory{router}
+func NewResourceFactory(router *gin.Engine) ResourceFactory {
+	return &resourceFactory{router}
 }
 
-func (rf *routeFactory) Create(entity string, ct Controller) {
+func (rf *resourceFactory) Create(entity string, ct Controller) {
 	rf.router.GET(resourceFromEntity(entity), ct.HandleGetAll)
 	rf.router.POST(resourceFromEntity(entity), ct.HandleCreate)
 	rf.router.GET(resourceFromEntity(entity, ":id"), ct.HandleGetOne)
