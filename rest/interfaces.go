@@ -6,4 +6,5 @@ type Controller interface {
 	HandleCreate(c *gin.Context)
 	HandleGetAll(c *gin.Context)
 	HandleGetOne(c *gin.Context)
+	HandleUpdateOne(c *gin.Context)
 }

@@ -8,7 +8,7 @@ import (
 
 type defaultController struct {
 	service tracker.Service
-	Entity  string
+	entity  string
 }
 
 func (ct *defaultController) HandleCreate(c *gin.Context) {
@@ -25,6 +25,12 @@ func (ct *defaultController) HandleGetAll(c *gin.Context) {
 
 func (ct *defaultController) HandleGetOne(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "HandleGetOne not implmented",
+		"message": "HandleGetOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
+	})
+}
+
+func (ct *defaultController) HandleUpdateOne(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "HandleUpdateOne not implmented for /" + ct.entity + "/" + c.Params.ByName("id"),
 	})
 }

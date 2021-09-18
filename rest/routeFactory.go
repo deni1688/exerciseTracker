@@ -18,6 +18,7 @@ func (rf *routeFactory) Create(entity string, ct Controller) {
 	rf.router.GET(resourceFromEntity(entity), ct.HandleGetAll)
 	rf.router.POST(resourceFromEntity(entity), ct.HandleCreate)
 	rf.router.GET(resourceFromEntity(entity, ":id"), ct.HandleGetOne)
+	rf.router.PUT(resourceFromEntity(entity, ":id"), ct.HandleUpdateOne)
 }
 
 func resourceFromEntity(entity string, params ...string) string {
