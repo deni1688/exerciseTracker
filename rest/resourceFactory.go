@@ -2,27 +2,28 @@ package rest
 
 import "github.com/gin-gonic/gin"
 
-type ResourceFactory interface {
-	Create(entity string, ct Controller)
+type Resource interface {
+	With(ct Controller)
 }
 
 type resourceFactory struct {
 	router *gin.Engine
+	category string
 }
 
-func NewResourceFactory(router *gin.Engine) ResourceFactory {
-	return &resourceFactory{router}
+func NewResource(router *gin.Engine, category string) Resource {
+	return &resourceFactory{router, category}
 }
 
-func (rf *resourceFactory) Create(entity string, ct Controller) {
-	rf.router.GET(resourceFromEntity(entity), ct.GetAll)
-	rf.router.POST(resourceFromEntity(entity), ct.Create)
-	rf.router.GET(resourceFromEntity(entity, ":id"), ct.GetOne)
-	rf.router.PUT(resourceFromEntity(entity, ":id"), ct.UpdateOne)
+func (r *resourceFactory) With(ct Controller) {
+	r.router.GET(resourcePathFromCategory(r.category), ct.GetAll)
+	r.router.POST(resourcePathFromCategory(r.category), ct.Create)
+	r.router.GET(resourcePathFromCategory(r.category, ":id"), ct.GetOne)
+	r.router.PUT(resourcePathFromCategory(r.category, ":id"), ct.UpdateOne)
 }
 
-func resourceFromEntity(entity string, params ...string) string {
-	resource := "/" + entity
+func resourcePathFromCategory(category string, params ...string) string {
+	resource := "/" + category
 
 	for _, p := range params {
 		resource += "/" + p

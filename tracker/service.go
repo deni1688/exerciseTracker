@@ -1,25 +1,32 @@
 package tracker
 
-func NewTrackerService() Service {
-	return &myHealthTrackService{}
+type Service interface {
+	FindAll(category string, query string) []byte
+	FindOne(category string, id string) []byte
+	Create(category string, data[]byte) bool
+	UpdateOne(category string, id string, data[]byte) bool
 }
 
-type myHealthTrackService struct {
+func NewTrackerService() Service {
+	return &trackService{}
+}
+
+type trackService struct {
 	r *Repository
 }
 
-func (s *myHealthTrackService) FindAll(entity string, query string) []interface{} {
-	return []interface{}{}
-}
-
-func (s *myHealthTrackService) FindOne(entity string, id string) interface{} {
+func (s *trackService) FindAll(category string, query string) []byte {
 	return nil
 }
 
-func (s *myHealthTrackService) Create(entity string, object interface{}) bool {
+func (s *trackService) FindOne(category string, id string) []byte {
+	return nil
+}
+
+func (s *trackService) Create(category string, data []byte) bool {
 	return false
 }
 
-func (s *myHealthTrackService) UpdateOne(entity string, id string, object interface{}) bool {
+func (s *trackService) UpdateOne(category string, id string, data []byte) bool {
 	return false
 }

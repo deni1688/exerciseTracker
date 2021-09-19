@@ -19,11 +19,9 @@ func main() {
 
 	trackingService := tracker.NewTrackerService()
 	controllerFactory := rest.NewControllerFactory(trackingService)
-	resourceFactory := rest.NewResourceFactory(router)
 
-	resourceFactory.Create(tracker.EXERCISE, controllerFactory.Create(tracker.EXERCISE))
-	resourceFactory.Create(tracker.WEIGHT, controllerFactory.Create(tracker.WEIGHT))
-	resourceFactory.Create(tracker.CALORIES, controllerFactory.Create(tracker.CALORIES))
+	rest.NewResource(router, tracker.EXERCISE).With(controllerFactory.Create(tracker.EXERCISE))
+	rest.NewResource(router, tracker.WEIGHT).With(controllerFactory.Create(tracker.WEIGHT))
 
 	if err := router.Run(os.Getenv("PORT")); err != nil {
 		log.Fatal("Error running server", err)

@@ -3,7 +3,7 @@ package rest
 import "deni1688/myHealthTrack/tracker"
 
 type ControllerFactory interface {
-    Create(entity string) Controller
+    Create(category string) Controller
 }
 
 type controllerFactory struct {
@@ -14,18 +14,17 @@ func NewControllerFactory(service tracker.Service) ControllerFactory{
    return &controllerFactory{service}
 }
 
-func (cf controllerFactory) Create(entity string) Controller {
-	dc := &defaultController{cf.service, entity}
+func (cf controllerFactory) Create(category string) Controller {
+	dc := &defaultController{cf.service, category}
 
-    if entity == tracker.EXERCISE {
+    if category == tracker.EXERCISE {
         return &exerciseController{dc}
     }
-    if entity == tracker.WEIGHT {
+
+    if category == tracker.WEIGHT {
         return &weightController{dc}
     }
-    if entity == tracker.CALORIES {
-        return &caloriesController{dc}
-    }
+
 
 	return dc
 }
