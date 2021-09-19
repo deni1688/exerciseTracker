@@ -17,8 +17,8 @@ func main() {
 
 	router := gin.Default()
 
-	trackingService := tracker.NewTrackerService()
-	controllerFactory := rest.NewControllerFactory(trackingService)
+	trackerService := tracker.NewTrackerService()
+	controllerFactory := rest.NewControllerFactory(trackerService)
 
 	rest.NewResource(router, tracker.EXERCISE).With(controllerFactory.Create(tracker.EXERCISE))
 	rest.NewResource(router, tracker.WEIGHT).With(controllerFactory.Create(tracker.WEIGHT))
