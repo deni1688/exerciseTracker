@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func RepositoryFactory(storage string) (tracker.Repository, error) {
+func GetRepository(storage string) (tracker.Repository, error) {
 	if storage == "jsondb" {
 		jsonDBDir := os.Getenv("JSON_DB_DIR")
 

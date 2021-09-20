@@ -18,7 +18,7 @@ func main() {
 
 	router := gin.Default()
 	storageType := os.Getenv("MHT_STORAGE")
-	repo, err := storage.RepositoryFactory(storageType)
+	repo, err := storage.GetRepository(storageType)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
