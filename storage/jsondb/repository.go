@@ -4,6 +4,7 @@ import (
 	"deni1688/myHealthTrack/tracker"
 	"fmt"
 
+	uuid "github.com/google/uuid"
 	scribble "github.com/nanobox-io/golang-scribble"
 )
 
@@ -30,7 +31,13 @@ func (jdb *jsondb) FindOne(id string) interface{} {
 }
 
 func (jdb *jsondb) Create(object interface{}) string {
-	return ""
+	id := uuid.New().String()
+
+	if err := jdb.db.Write("trackpoints", id, object); err != nil {
+		fmt.Println("Error", err)
+	}
+
+	return id
 }
 
 func (jdb *jsondb) UpdateOne(id string, object interface{}) bool {

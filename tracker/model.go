@@ -6,11 +6,12 @@ const (
 )
 
 type trackEntry struct {
-	category string
-	value    float64
-	description string
+	ID          string  `json:"id"`
+	Category    string  `json:"category"`
+	Value       float64 `json:"value"`
+	Description string  `json:"description"`
 }
 
 func NewTrackEntry(category, description string, value float64) *trackEntry {
-	return &trackEntry{category,value,description}
+	return &trackEntry{"", category, value, description}
 }

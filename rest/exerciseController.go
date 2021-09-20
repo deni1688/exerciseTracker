@@ -1,6 +1,8 @@
 package rest
 
 import (
+	"io"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,8 +11,10 @@ type exerciseController struct {
 }
 
 func (ct *exerciseController) Create(c *gin.Context) {
+	byt, _ := io.ReadAll(c.Request.Body)
+
 	c.JSON(200, gin.H{
-		"message": "CreateExercise not implemented",
+		"id": ct.service.Create(ct.category, byt),
 	})
 }
 
