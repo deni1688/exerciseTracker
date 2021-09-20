@@ -17,7 +17,7 @@ func main() {
 	}
 
 	router := gin.Default()
-	repo := jsondb.New("jsondata")
+	repo := jsondb.New("json_data")
 	trackerService := tracker.NewTrackerService(repo)
 	controllerFactory := rest.NewControllerFactory(trackerService)
 
