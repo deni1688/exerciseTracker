@@ -2,7 +2,7 @@ package main
 
 import (
 	"deni1688/myHealthTrack/rest"
-	"deni1688/myHealthTrack/storage/jsondb"
+	"deni1688/myHealthTrack/storage"
 	"deni1688/myHealthTrack/tracker"
 	"log"
 	"os"
@@ -17,7 +17,11 @@ func main() {
 	}
 
 	router := gin.Default()
-	repo := jsondb.New("json_data")
+	storageType := os.Getenv("MHT_STORAGE")
+	repo, err := storage.RepositoryFactory(storageType)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 	trackerService := tracker.NewTrackerService(repo)
 	controllerFactory := rest.NewControllerFactory(trackerService)
 
