@@ -11,15 +11,29 @@ type exerciseController struct {
 }
 
 func (ct *exerciseController) Create(c *gin.Context) {
-	byt, _ := io.ReadAll(c.Request.Body)
+	byt, err := io.ReadAll(c.Request.Body)
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
 
-	c.JSON(200, gin.H{
-		"id": ct.service.Create(ct.category, byt),
-	})
+	id, err := ct.service.Create(byt)
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(200, gin.H{"id": id})
 }
 
 func (ct *exerciseController) GetAll(c *gin.Context) {
+	exercises, err := ct.service.FindAll(ct.category, "")
+	if err != nil {
+		c.JSON(400, gin.H{"error": err.Error()})
+		return
+	}
+
 	c.JSON(200, gin.H{
-		"message": "GetAllExercises not implemented",
+		"data": exercises,
 	})
 }

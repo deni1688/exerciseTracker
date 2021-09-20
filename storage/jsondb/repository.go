@@ -2,13 +2,14 @@ package jsondb
 
 import (
 	"deni1688/myHealthTrack/tracker"
+	"encoding/json"
 	"fmt"
+	"log"
 
-	uuid "github.com/google/uuid"
 	scribble "github.com/nanobox-io/golang-scribble"
 )
 
-type jsondb struct {
+type jsonDB struct {
 	db *scribble.Driver
 }
 
@@ -19,27 +20,39 @@ func New(dir string) tracker.Repository {
 		fmt.Println("Error", err)
 	}
 
-	return &jsondb{db}
+	return &jsonDB{db}
 }
 
-func (jdb *jsondb) FindAll(query string) []interface{} {
-	return nil
-}
-
-func (jdb *jsondb) FindOne(id string) interface{} {
-	return nil
-}
-
-func (jdb *jsondb) Create(object interface{}) string {
-	id := uuid.New().String()
-
-	if err := jdb.db.Write("trackpoints", id, object); err != nil {
-		fmt.Println("Error", err)
+func (jdb *jsonDB) FindAll() ([]tracker.TrackEntry, error) {
+	records, err := jdb.db.ReadAll("track_entries")
+	if err != nil {
+		return nil, err
 	}
 
-	return id
+	trackEntries := make([]tracker.TrackEntry, 0)
+	for _, record := range records {
+		trackEntryFound := tracker.TrackEntry{}
+		if err := json.Unmarshal([]byte(record), &trackEntryFound); err != nil {
+			log.Println("Error in FindAll decoding TrackEntry", err)
+		}
+		trackEntries = append(trackEntries, trackEntryFound)
+	}
+
+	return trackEntries, nil
 }
 
-func (jdb *jsondb) UpdateOne(id string, object interface{}) bool {
+func (jdb *jsonDB) FindOne(id string) interface{} {
+	return nil
+}
+
+func (jdb *jsonDB) Create(te *tracker.TrackEntry) (string, error) {
+	if err := jdb.db.Write("track_entries", te.ID, te); err != nil {
+		return "", err
+	}
+
+	return te.ID, nil
+}
+
+func (jdb *jsonDB) UpdateOne(id string, object interface{}) bool {
 	return false
 }

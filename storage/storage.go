@@ -7,12 +7,14 @@ import (
 	"os"
 )
 
-func GetRepository(storage string) (tracker.Repository, error) {
-	if storage == "jsondb" {
+func NewRepository() (tracker.Repository, error) {
+	storage := os.Getenv("STORAGE")
+
+	if storage == "jsonDB" {
 		jsonDBDir := os.Getenv("JSON_DB_DIR")
 
 		if jsonDBDir == "" {
-			return nil, errors.New("Error getting the JSON_DB_DIR env variable!")
+			return nil, errors.New("error getting the JSON_DB_DIR env variable")
 		}
 
 		return jsondb.New(jsonDBDir), nil

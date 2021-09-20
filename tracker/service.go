@@ -2,12 +2,13 @@ package tracker
 
 import (
 	"encoding/json"
+	"errors"
 )
 
 type Service interface {
-	FindAll(category string, query string) []byte
+	FindAll(category string, query string) ([]TrackEntry, error)
 	FindOne(category string, id string) []byte
-	Create(category string, data []byte) string
+	Create(data []byte) (string, error)
 	UpdateOne(category string, id string, data []byte) bool
 }
 
@@ -19,20 +20,26 @@ type trackService struct {
 	r Repository
 }
 
-func (s *trackService) FindAll(category string, query string) []byte {
-	return nil
+func (s *trackService) FindAll(category string, query string) ([]TrackEntry, error) {
+	exercises, err := s.r.FindAll()
+	if err != nil {
+		return nil, err
+	}
+
+	return exercises, nil
 }
 
 func (s *trackService) FindOne(category string, id string) []byte {
 	return nil
 }
 
-func (s *trackService) Create(category string, data []byte) string {
-	var te *trackEntry
+func (s *trackService) Create(data []byte) (string, error) {
+	var te *TrackEntry
+	if err := json.Unmarshal(data, &te); err != nil {
+		return "", errors.New("Error trying to parse exercise data: " + err.Error())
+	}
 
-	_ = json.Unmarshal(data, &te)
-
-	return s.r.Create(te)
+	return s.r.Create(NewTrackEntry(te.Category, te.Description, te.Value))
 }
 
 func (s *trackService) UpdateOne(category string, id string, data []byte) bool {
