@@ -3,16 +3,16 @@ package tracker
 type Service interface {
 	FindAll(category string, query string) []byte
 	FindOne(category string, id string) []byte
-	Create(category string, data[]byte) bool
-	UpdateOne(category string, id string, data[]byte) bool
+	Create(category string, data []byte) bool
+	UpdateOne(category string, id string, data []byte) bool
 }
 
-func NewTrackerService() Service {
-	return &trackService{}
+func NewTrackerService(r Repository) Service {
+	return &trackService{r}
 }
 
 type trackService struct {
-	r *Repository
+	r Repository
 }
 
 func (s *trackService) FindAll(category string, query string) []byte {
