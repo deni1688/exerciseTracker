@@ -1,13 +1,13 @@
-package repository
+package repositories
 
 import (
 	"deni1688/exerciseTracker/exercises"
-	"deni1688/exerciseTracker/repository/jsondb"
+	"deni1688/exerciseTracker/repositories/jsondb"
 	"errors"
 	"os"
 )
 
-func New() (exercises.Repository, error) {
+func NewRepository() (exercises.Repository, error) {
 	storage := os.Getenv("STORAGE")
 
 	if storage == "jsonDB" {
