@@ -6,7 +6,7 @@ import (
 )
 
 type Service interface {
-	FindAll(category string, query string) ([]TrackEntry, error)
+	FindAll() ([]Exercise, error)
 	FindOne(category string, id string) []byte
 	Create(data []byte) (string, error)
 	UpdateOne(category string, id string, data []byte) bool
@@ -17,11 +17,11 @@ func NewTrackerService(r Repository) Service {
 }
 
 type trackService struct {
-	r Repository
+	repo Repository
 }
 
-func (s *trackService) FindAll(category string, query string) ([]TrackEntry, error) {
-	exercises, err := s.r.FindAll()
+func (s *trackService) FindAll() ([]Exercise, error) {
+	exercises, err := s.repo.FindAll()
 	if err != nil {
 		return nil, err
 	}
@@ -34,12 +34,13 @@ func (s *trackService) FindOne(category string, id string) []byte {
 }
 
 func (s *trackService) Create(data []byte) (string, error) {
-	var te *TrackEntry
-	if err := json.Unmarshal(data, &te); err != nil {
+	var ex *ExerciseAggregate
+
+	if err := json.Unmarshal(data, &ex); err != nil {
 		return "", errors.New("Error trying to parse exercise data: " + err.Error())
 	}
 
-	return s.r.Create(NewTrackEntry(te.Category, te.Description, te.Value))
+	return s.repo.Create(newExercise(ex))
 }
 
 func (s *trackService) UpdateOne(category string, id string, data []byte) bool {

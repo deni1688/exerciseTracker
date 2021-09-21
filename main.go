@@ -1,7 +1,7 @@
 package main
 
 import (
-	"deni1688/myHealthTrack/rest"
+	"deni1688/myHealthTrack/http/rest"
 	"deni1688/myHealthTrack/storage"
 	"deni1688/myHealthTrack/tracker"
 	"github.com/gin-gonic/gin"
@@ -24,8 +24,7 @@ func main() {
 	controllerFactory := rest.NewControllerFactory(trackerService)
 
 	router := gin.Default()
-	rest.NewResource(router, tracker.EXERCISE).With(controllerFactory.Create(tracker.EXERCISE))
-	rest.NewResource(router, tracker.WEIGHT).With(controllerFactory.Create(tracker.WEIGHT))
+	rest.NewResource(router, tracker.Collection).With(controllerFactory.Create(tracker.Collection))
 
 	port := os.Getenv("PORT")
 	log.Fatal(router.Run(port))

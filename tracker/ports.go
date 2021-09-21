@@ -1,8 +1,8 @@
 package tracker
 
 type Repository interface {
-	FindAll() ([]TrackEntry, error)
+	FindAll() ([]Exercise, error)
 	FindOne(id string) interface{}
-	Create(te *TrackEntry) (string, error)
+	Create(te Exercise) (string, error)
 	UpdateOne(id string, object interface{}) bool
 }
