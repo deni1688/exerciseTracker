@@ -7,8 +7,8 @@ type Resource interface {
 }
 
 type resourceFactory struct {
-	router *gin.Engine
-	category string
+	router     *gin.Engine
+	collection string
 }
 
 func NewResource(router *gin.Engine, category string) Resource {
@@ -16,13 +16,13 @@ func NewResource(router *gin.Engine, category string) Resource {
 }
 
 func (r *resourceFactory) With(ct Controller) {
-	r.router.GET(resourcePathFromCategory(r.category), ct.GetAll)
-	r.router.POST(resourcePathFromCategory(r.category), ct.Create)
-	r.router.GET(resourcePathFromCategory(r.category, ":id"), ct.GetOne)
-	r.router.PUT(resourcePathFromCategory(r.category, ":id"), ct.UpdateOne)
+	r.router.GET(resourcePathFromCollection(r.collection), ct.GetAll)
+	r.router.POST(resourcePathFromCollection(r.collection), ct.Create)
+	r.router.GET(resourcePathFromCollection(r.collection, ":id"), ct.GetOne)
+	r.router.PUT(resourcePathFromCollection(r.collection, ":id"), ct.UpdateOne)
 }
 
-func resourcePathFromCategory(category string, params ...string) string {
+func resourcePathFromCollection(category string, params ...string) string {
 	resource := "/" + category
 
 	for _, p := range params {

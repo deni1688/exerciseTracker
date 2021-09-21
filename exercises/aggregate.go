@@ -1,6 +1,6 @@
-package tracker
+package exercises
 
-type ExerciseAggregate struct {
+type Aggregate struct {
 	Category string  `json:"category"`
 	Name     string  `json:"name"`
 	Weight   float64 `json:"weight"`

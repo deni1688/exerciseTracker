@@ -1,8 +1,8 @@
-package tracker
+package exercises
 
 type Repository interface {
-	FindAll() ([]Exercise, error)
+	FindAll() ([]Entity, error)
 	FindOne(id string) interface{}
-	Create(te Exercise) (string, error)
+	Create(te Entity) (string, error)
 	UpdateOne(id string, object interface{}) bool
 }

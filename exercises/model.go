@@ -1,4 +1,4 @@
-package tracker
+package exercises
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 
 const Collection = "exercises"
 
-type Exercise interface {
+type Entity interface {
 	GetID() string
 	Encode() ([]byte, error)
 }
@@ -40,7 +40,7 @@ func (ex *exercise) Encode() ([]byte, error) {
 	return json.Marshal(ex)
 }
 
-func newExercise(er *ExerciseAggregate) Exercise {
+func newExercise(er *Aggregate) Entity {
 	id := uuid.New().String()
 	created := time.Now().Unix()
 

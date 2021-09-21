@@ -1,7 +1,7 @@
 package jsondb
 
 import (
-	"deni1688/myHealthTrack/tracker"
+	"deni1688/myHealthTrack/exercises"
 	"fmt"
 	scribble "github.com/nanobox-io/golang-scribble"
 )
@@ -10,7 +10,7 @@ type jsonDB struct {
 	db *scribble.Driver
 }
 
-func New(dir string) tracker.Repository {
+func New(dir string) exercises.Repository {
 	db, err := scribble.New(dir, nil)
 
 	if err != nil {
@@ -20,7 +20,7 @@ func New(dir string) tracker.Repository {
 	return &jsonDB{db}
 }
 
-func (jdb *jsonDB) FindAll() ([]tracker.Exercise, error) {
+func (jdb *jsonDB) FindAll() ([]exercises.Entity, error) {
 	return nil, nil
 }
 
@@ -28,8 +28,8 @@ func (jdb *jsonDB) FindOne(id string) interface{} {
 	return nil
 }
 
-func (jdb *jsonDB) Create(ex tracker.Exercise) (string, error) {
-	if err := jdb.db.Write(tracker.Collection, ex.GetID(), ex); err != nil {
+func (jdb *jsonDB) Create(ex exercises.Entity) (string, error) {
+	if err := jdb.db.Write(exercises.Collection, ex.GetID(), ex); err != nil {
 		return "", err
 	}
 

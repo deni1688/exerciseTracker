@@ -1,4 +1,4 @@
-package tracker
+package exercises
 
 import (
 	"encoding/json"
@@ -6,21 +6,21 @@ import (
 )
 
 type Service interface {
-	FindAll() ([]Exercise, error)
+	FindAll() ([]Entity, error)
 	FindOne(category string, id string) []byte
 	Create(data []byte) (string, error)
 	UpdateOne(category string, id string, data []byte) bool
 }
 
-func NewTrackerService(r Repository) Service {
-	return &trackService{r}
+func NewService(r Repository) Service {
+	return &exercisesService{r}
 }
 
-type trackService struct {
+type exercisesService struct {
 	repo Repository
 }
 
-func (s *trackService) FindAll() ([]Exercise, error) {
+func (s *exercisesService) FindAll() ([]Entity, error) {
 	exercises, err := s.repo.FindAll()
 	if err != nil {
 		return nil, err
@@ -29,12 +29,12 @@ func (s *trackService) FindAll() ([]Exercise, error) {
 	return exercises, nil
 }
 
-func (s *trackService) FindOne(category string, id string) []byte {
+func (s *exercisesService) FindOne(category string, id string) []byte {
 	return nil
 }
 
-func (s *trackService) Create(data []byte) (string, error) {
-	var ex *ExerciseAggregate
+func (s *exercisesService) Create(data []byte) (string, error) {
+	var ex *Aggregate
 
 	if err := json.Unmarshal(data, &ex); err != nil {
 		return "", errors.New("Error trying to parse exercise data: " + err.Error())
@@ -43,6 +43,6 @@ func (s *trackService) Create(data []byte) (string, error) {
 	return s.repo.Create(newExercise(ex))
 }
 
-func (s *trackService) UpdateOne(category string, id string, data []byte) bool {
+func (s *exercisesService) UpdateOne(category string, id string, data []byte) bool {
 	return false
 }

@@ -3,7 +3,7 @@ package main
 import (
 	"deni1688/myHealthTrack/http/rest"
 	"deni1688/myHealthTrack/repository"
-	"deni1688/myHealthTrack/tracker"
+	"deni1688/myHealthTrack/exercises"
 	"log"
 	"os"
 
@@ -22,11 +22,11 @@ func main() {
 		log.Fatal("Error creating new repository", err)
 	}
 
-	trackerService := tracker.NewTrackerService(repo)
+	trackerService := exercises.NewService(repo)
 	controllerFactory := rest.NewControllerFactory(trackerService)
 
 	router := gin.Default()
-	rest.NewResource(router, tracker.Collection).With(controllerFactory.Create(tracker.Collection))
+	rest.NewResource(router, exercises.Collection).With(controllerFactory.Create(exercises.Collection))
 
 	port := os.Getenv("PORT")
 	log.Fatal(router.Run(port))
