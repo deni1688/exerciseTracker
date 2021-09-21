@@ -20,5 +20,9 @@ func New() (exercises.Repository, error) {
 		return jsondb.New(jsonDBDir), nil
 	}
 
+	if storage != "" {
+		storage = "Undefined"
+	}
+
 	return nil, errors.New(storage + " is not supported!")
 }
