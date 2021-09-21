@@ -14,12 +14,12 @@ import (
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading the .env file", err)
+		log.Fatal("Error loading the .env file:", err)
 	}
 
 	repo, err := repository.New()
 	if err != nil {
-		log.Fatal("Error creating new repository", err)
+		log.Fatal("Error creating new repository:", err)
 	}
 
 	trackerService := exercises.NewService(repo)
@@ -29,5 +29,5 @@ func main() {
 	rest.NewResource(router, controller.For(exercises.Collection))
 
 	port := os.Getenv("PORT")
-	log.Fatal(router.Run(port))
+	log.Fatal("Error starting server:", router.Run(port))
 }
