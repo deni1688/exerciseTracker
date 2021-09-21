@@ -1,4 +1,4 @@
-module deni1688/myHealthTrack
+module deni1688/exerciseTracker
 
 go 1.16
 

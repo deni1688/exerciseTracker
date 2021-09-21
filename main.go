@@ -1,10 +1,10 @@
 package main
 
 import (
-	"deni1688/myHealthTrack/exercises"
-	"deni1688/myHealthTrack/http/rest"
-	"deni1688/myHealthTrack/http/rest/controllers"
-	"deni1688/myHealthTrack/repository"
+	"deni1688/exerciseTracker/exercises"
+	"deni1688/exerciseTracker/http/rest"
+	"deni1688/exerciseTracker/http/rest/controllers"
+	"deni1688/exerciseTracker/repository"
 	"log"
 	"os"
 

@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"deni1688/myHealthTrack/exercises"
-	"deni1688/myHealthTrack/repository/jsondb"
+	"deni1688/exerciseTracker/exercises"
+	"deni1688/exerciseTracker/repository/jsondb"
 	"errors"
 	"os"
 )

@@ -1,7 +1,7 @@
 package rest
 
 import (
-	. "deni1688/myHealthTrack/http/rest/controllers"
+	. "deni1688/exerciseTracker/http/rest/controllers"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"deni1688/myHealthTrack/exercises"
+	"deni1688/exerciseTracker/exercises"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,7 +1,7 @@
 package jsondb
 
 import (
-	"deni1688/myHealthTrack/exercises"
+	"deni1688/exerciseTracker/exercises"
 	"fmt"
 	scribble "github.com/nanobox-io/golang-scribble"
 )
