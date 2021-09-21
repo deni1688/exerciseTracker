@@ -1,4 +1,4 @@
-package rest
+package controllers
 
 import "github.com/gin-gonic/gin"
 
@@ -7,4 +7,5 @@ type Controller interface {
 	GetAll(c *gin.Context)
 	GetOne(c *gin.Context)
 	UpdateOne(c *gin.Context)
+	GetResource() string
 }

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"deni1688/myHealthTrack/http/rest"
-	"deni1688/myHealthTrack/repository"
 	"deni1688/myHealthTrack/exercises"
+	"deni1688/myHealthTrack/http/rest"
+	"deni1688/myHealthTrack/http/rest/controllers"
+	"deni1688/myHealthTrack/repository"
 	"log"
 	"os"
 
@@ -23,10 +24,10 @@ func main() {
 	}
 
 	trackerService := exercises.NewService(repo)
-	controllerFactory := rest.NewControllerFactory(trackerService)
+	controller := controllers.NewControllerFactory(trackerService)
 
 	router := gin.Default()
-	rest.NewResource(router, exercises.Collection).With(controllerFactory.Create(exercises.Collection))
+	rest.NewResource(router, controller.For(exercises.Collection))
 
 	port := os.Getenv("PORT")
 	log.Fatal(router.Run(port))

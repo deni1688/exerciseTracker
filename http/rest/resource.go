@@ -1,33 +1,23 @@
 package rest
 
-import "github.com/gin-gonic/gin"
+import (
+	. "deni1688/myHealthTrack/http/rest/controllers"
+	"github.com/gin-gonic/gin"
+)
 
-type Resource interface {
-	With(ct Controller)
+
+func NewResource(router *gin.Engine, controller Controller) {
+	resource := controller.GetResource()
+	router.GET(getResourcePath(resource), controller.GetAll)
+	router.POST(getResourcePath(resource), controller.Create)
+	router.GET(getResourcePath(resource, ":id"), controller.GetOne)
+	router.PUT(getResourcePath(resource, ":id"), controller.UpdateOne)
 }
 
-type resourceFactory struct {
-	router     *gin.Engine
-	collection string
-}
-
-func NewResource(router *gin.Engine, category string) Resource {
-	return &resourceFactory{router, category}
-}
-
-func (r *resourceFactory) With(ct Controller) {
-	r.router.GET(resourcePathFromCollection(r.collection), ct.GetAll)
-	r.router.POST(resourcePathFromCollection(r.collection), ct.Create)
-	r.router.GET(resourcePathFromCollection(r.collection, ":id"), ct.GetOne)
-	r.router.PUT(resourcePathFromCollection(r.collection, ":id"), ct.UpdateOne)
-}
-
-func resourcePathFromCollection(category string, params ...string) string {
+func getResourcePath(category string, params ...string) string {
 	resource := "/" + category
-
 	for _, p := range params {
 		resource += "/" + p
 	}
-
 	return resource
 }

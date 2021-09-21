@@ -1,4 +1,4 @@
-package rest
+package controllers
 
 import (
 	"deni1688/myHealthTrack/exercises"
@@ -9,6 +9,10 @@ import (
 type defaultController struct {
 	service  exercises.Service
 	resource string
+}
+
+func (ct *defaultController) GetResource() string {
+	return ct.resource
 }
 
 func (ct *defaultController) Create(c *gin.Context) {

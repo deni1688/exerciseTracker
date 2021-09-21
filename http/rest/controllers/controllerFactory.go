@@ -1,9 +1,11 @@
-package rest
+package controllers
 
-import "deni1688/myHealthTrack/exercises"
+import (
+	"deni1688/myHealthTrack/exercises"
+)
 
 type ControllerFactory interface {
-    Create(resource string) Controller
+    For(resource string) Controller
 }
 
 type controllerFactory struct {
@@ -14,8 +16,10 @@ func NewControllerFactory(service exercises.Service) ControllerFactory {
    return &controllerFactory{service}
 }
 
-func (cf controllerFactory) Create(resource string) Controller {
+func (cf controllerFactory) For(resource string) Controller {
 	dc := &defaultController{cf.service, resource}
-
-	return &exerciseController{dc}
+	if resource == exercises.Collection {
+		return &exerciseController{dc}
+	}
+	return dc
 }
