@@ -1,6 +1,7 @@
 package tracker
 
 import (
+	"encoding/json"
 	"github.com/google/uuid"
 	"time"
 )
@@ -9,6 +10,7 @@ const Collection = "exercises"
 
 type Exercise interface {
 	GetID() string
+	Encode() ([]byte, error)
 }
 
 type exercise struct {
@@ -34,6 +36,9 @@ type calisthenics struct {
 func (ex *exercise) GetID() string {
 	return ex.ID
 }
+func (ex *exercise) Encode() ([]byte, error) {
+	return json.Marshal(ex)
+}
 
 func newExercise(er *ExerciseAggregate) Exercise {
 	id := uuid.New().String()
@@ -52,12 +57,3 @@ func newExercise(er *ExerciseAggregate) Exercise {
 	return ex
 }
 
-type ExerciseAggregate struct {
-	Category string  `json:"category"`
-	Name     string  `json:"name"`
-	Weight   float64 `json:"weight"`
-	Duration int     `json:"duration,omitempty"`
-	Distance int     `json:"distance,omitempty"`
-	Reps     int     `json:"reps,omitempty"`
-	Sets     int     `json:"sets,omitempty"`
-}
