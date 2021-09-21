@@ -3,7 +3,6 @@ package main
 import (
 	"deni1688/exerciseTracker/exercises"
 	"deni1688/exerciseTracker/http/rest"
-	"deni1688/exerciseTracker/http/rest/controllers"
 	"deni1688/exerciseTracker/repository"
 	"log"
 	"os"
@@ -24,7 +23,7 @@ func main() {
 	}
 
 	trackerService := exercises.NewService(repo)
-	controller := controllers.NewControllerFactory(trackerService)
+	controller := rest.NewControllerFactory(trackerService)
 
 	router := gin.Default()
 	rest.NewResource(router, controller.For(exercises.Collection))

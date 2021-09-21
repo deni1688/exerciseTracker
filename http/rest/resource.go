@@ -1,7 +1,6 @@
 package rest
 
 import (
-	. "deni1688/exerciseTracker/http/rest/controllers"
 	"github.com/gin-gonic/gin"
 )
 

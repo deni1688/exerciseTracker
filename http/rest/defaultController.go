@@ -1,4 +1,4 @@
-package controllers
+package rest
 
 import (
 	"deni1688/exerciseTracker/exercises"
