@@ -1,13 +1,13 @@
-package storage
+package repository
 
 import (
-	"deni1688/myHealthTrack/storage/jsondb"
+	"deni1688/myHealthTrack/repository/jsondb"
 	"deni1688/myHealthTrack/tracker"
 	"errors"
 	"os"
 )
 
-func NewRepository() (tracker.Repository, error) {
+func New() (tracker.Repository, error) {
 	storage := os.Getenv("STORAGE")
 
 	if storage == "jsonDB" {

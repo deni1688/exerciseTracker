@@ -2,20 +2,22 @@ package main
 
 import (
 	"deni1688/myHealthTrack/http/rest"
-	"deni1688/myHealthTrack/storage"
+	"deni1688/myHealthTrack/repository"
 	"deni1688/myHealthTrack/tracker"
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
+
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
+	err := godotenv.Load()
+	if err != nil {
 		log.Fatal("Error loading the .env file", err)
 	}
 
-	repo, err := storage.NewRepository()
+	repo, err := repository.New()
 	if err != nil {
 		log.Fatal("Error creating new repository", err)
 	}
