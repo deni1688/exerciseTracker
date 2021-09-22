@@ -1,5 +1,9 @@
 package exercises
 
+import "errors"
+
+var invalidCategoryErr = errors.New("invalid exercise category")
+
 type Service interface {
 	FindAll() (*[]Exercise, error)
 	FindOne(category string, id string) []byte
@@ -29,17 +33,15 @@ func (s *exercisesService) FindOne(category string, id string) []byte {
 }
 
 func (s *exercisesService) Create(er *Exercise) (string, error) {
-	ex := new(Exercise)
-
 	if er.Category == "cardio" {
-		ex = NewExercise(er.Category, er.Name, er.Weight).ForCardio(er.Duration, er.Distance)
+		return s.repo.Create(NewExercise(er.Category, er.Name, er.Weight).ForCardio(er.Duration, er.Distance))
 	}
 
 	if er.Category == "calisthenics" {
-		ex = NewExercise(er.Category, er.Name, er.Weight).ForCalisthenics(er.Reps, er.Sets)
+		return s.repo.Create(NewExercise(er.Category, er.Name, er.Weight).ForCalisthenics(er.Reps, er.Sets))
 	}
 
-	return s.repo.Create(ex)
+	return "", invalidCategoryErr
 }
 
 func (s *exercisesService) UpdateOne(category string, id string, data []byte) bool {
