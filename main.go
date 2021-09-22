@@ -22,7 +22,7 @@ func main() {
 		log.Fatal("Error creating new repository:", err)
 	}
 
-	trackerService := exercises.NewService(repo)
+	trackerService := exercises.NewExerciseService(repo)
 	controller := rest.NewControllerFactory(trackerService)
 
 	router := gin.Default()

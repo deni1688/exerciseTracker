@@ -1,18 +1,13 @@
 package exercises
 
-import (
-	"encoding/json"
-	"errors"
-)
-
 type Service interface {
 	FindAll() (*[]Exercise, error)
 	FindOne(category string, id string) []byte
-	Create(data []byte) (string, error)
+	Create(data *Exercise) (string, error)
 	UpdateOne(category string, id string, data []byte) bool
 }
 
-func NewService(r Repository) Service {
+func NewExerciseService(r Repository) Service {
 	return &exercisesService{r}
 }
 
@@ -21,12 +16,12 @@ type exercisesService struct {
 }
 
 func (s *exercisesService) FindAll() (*[]Exercise, error) {
-	exercises, err := s.repo.FindAll()
+	_, err := s.repo.FindAll()
 	if err != nil {
 		return nil, err
 	}
 
-	return exercises, nil
+	return nil, nil
 }
 
 func (s *exercisesService) FindOne(category string, id string) []byte {
