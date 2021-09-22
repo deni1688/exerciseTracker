@@ -4,8 +4,10 @@ import (
 	"deni1688/exerciseTracker/exercises"
 	"errors"
 	"fmt"
-	scribble "github.com/nanobox-io/golang-scribble"
 	"os"
+
+	"github.com/google/uuid"
+	scribble "github.com/nanobox-io/golang-scribble"
 )
 
 type exerciseRepository struct {
@@ -26,22 +28,25 @@ func NewExerciseRepository() (exercises.Repository, error) {
 	return &exerciseRepository{db}, nil
 }
 
-func (jdb *exerciseRepository) FindAll() ([]exercises.Entity, error) {
+func (jdb *exerciseRepository) FindAll() (*[]exercises.Exercise, error) {
 	return nil, nil
 }
 
-func (jdb *exerciseRepository) FindOne(id string) interface{} {
-	return nil
+func (jdb *exerciseRepository) FindOne(id string) (*exercises.Exercise, error) {
+	return nil, nil
 }
 
-func (jdb *exerciseRepository) Create(ex exercises.Entity) (string, error) {
-	if err := jdb.db.Write(exercises.Collection, ex.GetID(), ex); err != nil {
+func (jdb *exerciseRepository) Create(ex *exercises.Exercise) (string, error) {
+	id := uuid.New().String()
+	ex.ID = id
+
+	if err := jdb.db.Write(exercises.Collection, ex.ID, ex); err != nil {
 		return "", err
 	}
 
-	return ex.GetID(), nil
+	return ex.ID, nil
 }
 
-func (jdb *exerciseRepository) UpdateOne(id string, object interface{}) bool {
-	return false
+func (jdb *exerciseRepository) UpdateOne(id string, ex *exercises.Exercise) (bool, error) {
+	return false, nil
 }

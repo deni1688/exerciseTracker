@@ -1,7 +1,6 @@
 package exercises
 
 import (
-	"github.com/google/uuid"
 	"time"
 )
 
@@ -21,7 +20,6 @@ type Exercise struct {
 
 func NewExercise(category, name string, weight float64) *Exercise {
 	ex := new(Exercise)
-	ex.ID = uuid.New().String()
 	ex.Created = time.Now().Unix()
 	ex.Category = category
 	ex.Name = name
