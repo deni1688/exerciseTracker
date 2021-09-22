@@ -1,13 +1,13 @@
-package rest
+package http
 
 import (
-	"deni1688/exerciseTracker/exercises"
+	"deni1688/exerciseTracker/domain"
 
 	"github.com/gin-gonic/gin"
 )
 
 type defaultController struct {
-	service  exercises.Service
+	service  domain.Service
 	resource string
 }
 
@@ -24,17 +24,5 @@ func (ct *defaultController) Create(c *gin.Context) {
 func (ct *defaultController) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "GetAll not implemented " + ct.resource,
-	})
-}
-
-func (ct *defaultController) GetOne(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "GetOne not implemented for /" + ct.resource + "/" + c.Params.ByName("id"),
-	})
-}
-
-func (ct *defaultController) UpdateOne(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "UpdateOne not implemented for /" + ct.resource + "/" + c.Params.ByName("id"),
 	})
 }

@@ -1,33 +1,37 @@
 package main
 
 import (
-	"deni1688/exerciseTracker/exercises"
-	"deni1688/exerciseTracker/http/rest"
-	"deni1688/exerciseTracker/sqlite"
-	"log"
-	"os"
-
+	"deni1688/exerciseTracker/config"
+	"deni1688/exerciseTracker/domain"
+	"deni1688/exerciseTracker/http"
+	"deni1688/exerciseTracker/storage"
+	"flag"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
+	"log"
 )
 
 func main() {
-	err := godotenv.Load()
+	err := config.LoadConfig(getEnv())
 	if err != nil {
-		log.Fatal("Error loading the .env file:", err)
+		log.Fatal("error loading the config file:", err)
 	}
 
-	repo, err := sqlite.NewExerciseRepository()
+	repo, err := storage.NewExerciseRepository("sqlite")
 	if err != nil {
-		log.Fatal("Error creating new repository:", err)
+		log.Fatal("error creating new repository:", err)
 	}
 
-	trackerService := exercises.NewExerciseService(repo)
-	controller := rest.NewControllerFactory(trackerService)
+	srv := domain.NewExerciseService(repo)
+	controller := http.NewControllerFactory(srv)
 
 	router := gin.Default()
-	rest.NewResource(router, controller.For(exercises.Collection))
+	http.NewResource(router, controller.For(domain.Collection))
 
-	port := os.Getenv("PORT")
-	log.Fatal("Error starting server:", router.Run(port))
+	log.Fatal("error starting server:", router.Run(config.GetString("api.port")))
+}
+
+func getEnv() *string {
+	env := flag.String("environment", "testing", "sets the config environments")
+	flag.Parse()
+	return env
 }

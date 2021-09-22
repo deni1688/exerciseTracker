@@ -1,16 +1,13 @@
-package rest
+package http
 
 import (
 	"github.com/gin-gonic/gin"
 )
 
-
 func NewResource(router *gin.Engine, controller Controller) {
 	resource := controller.GetResource()
 	router.GET(getResourcePath(resource), controller.GetAll)
 	router.POST(getResourcePath(resource), controller.Create)
-	router.GET(getResourcePath(resource, ":id"), controller.GetOne)
-	router.PUT(getResourcePath(resource, ":id"), controller.UpdateOne)
 }
 
 func getResourcePath(category string, params ...string) string {

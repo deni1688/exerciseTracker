@@ -2,11 +2,11 @@ package sqlite
 
 import (
 	"database/sql"
-	"deni1688/exerciseTracker/exercises"
+	"deni1688/exerciseTracker/config"
+	"deni1688/exerciseTracker/domain"
 	"errors"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
-	"os"
 	"time"
 )
 
@@ -14,19 +14,39 @@ type exerciseRepository struct {
 	db *sql.DB
 }
 
-func (e *exerciseRepository) FindAll() (*[]exercises.Exercise, error) {
-	panic("implement me")
+func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
+	results := make([]domain.Exercise, 0)
+
+	rows, err := r.db.Query("SELECT * FROM exercises")
+	if err != nil {
+		return nil, errors.New("error selecting exercises: " + err.Error())
+	}
+
+	for rows.Next() {
+		ex := domain.Exercise{}
+		_ = rows.Scan(
+			&ex.ID,
+			&ex.Name,
+			&ex.Category,
+			&ex.Weight,
+			&ex.Duration,
+			&ex.Distance,
+			&ex.Reps,
+			&ex.Sets,
+			&ex.Created,
+		)
+
+		results = append(results, ex)
+	}
+
+	return &results, err
 }
 
-func (e *exerciseRepository) FindOne(s string) (*exercises.Exercise, error) {
-	panic("implement me")
-}
-
-func (e *exerciseRepository) Create(ex *exercises.Exercise) (string, error) {
+func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 	ex.ID = uuid.New().String()
 	ex.Created = time.Now().Unix()
 
-	stmt, err := e.db.Prepare(`
+	stmt, err := r.db.Prepare(`
 		INSERT INTO exercises 
 		(id, category, name, weight, duration, distance, reps, sets, created) 
 		VALUES (?,?,?,?,?,?,?,?, ?)
@@ -49,12 +69,8 @@ func (e *exerciseRepository) Create(ex *exercises.Exercise) (string, error) {
 	return ex.ID, nil
 }
 
-func (e *exerciseRepository) UpdateOne(s string, exercise *exercises.Exercise) (bool, error) {
-	panic("implement me")
-}
-
-func NewExerciseRepository() (exercises.Repository, error) {
-	dir := os.Getenv("SQLITE_DB_DIR")
+func NewExerciseRepository() (domain.Repository, error) {
+	dir := config.GetString("storage.path")
 
 	db, err := sql.Open("sqlite3", dir)
 	if err != nil {

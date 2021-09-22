@@ -1,4 +1,4 @@
-package exercises
+package domain
 
 const Collection = "exercises"
 

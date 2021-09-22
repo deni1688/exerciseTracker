@@ -1,15 +1,8 @@
-package exercises
+package domain
 
 import "errors"
 
 var invalidCategoryErr = errors.New("invalid exercise category")
-
-type Service interface {
-	FindAll() (*[]Exercise, error)
-	FindOne(category string, id string) []byte
-	Create(data *Exercise) (string, error)
-	UpdateOne(category string, id string, data []byte) bool
-}
 
 func NewExerciseService(r Repository) Service {
 	return &exercisesService{r}
@@ -20,16 +13,7 @@ type exercisesService struct {
 }
 
 func (s *exercisesService) FindAll() (*[]Exercise, error) {
-	_, err := s.repo.FindAll()
-	if err != nil {
-		return nil, err
-	}
-
-	return nil, nil
-}
-
-func (s *exercisesService) FindOne(category string, id string) []byte {
-	return nil
+	return s.repo.FindAll()
 }
 
 func (s *exercisesService) Create(er *Exercise) (string, error) {
@@ -42,8 +26,4 @@ func (s *exercisesService) Create(er *Exercise) (string, error) {
 	}
 
 	return "", invalidCategoryErr
-}
-
-func (s *exercisesService) UpdateOne(category string, id string, data []byte) bool {
-	return false
 }
