@@ -1,9 +1,5 @@
 package exercises
 
-import (
-	"time"
-)
-
 const Collection = "exercises"
 
 type Exercise struct {
@@ -20,7 +16,6 @@ type Exercise struct {
 
 func NewExercise(category, name string, weight float64) *Exercise {
 	ex := new(Exercise)
-	ex.Created = time.Now().Unix()
 	ex.Category = category
 	ex.Name = name
 	ex.Weight = weight

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/google/uuid"
 	scribble "github.com/nanobox-io/golang-scribble"
@@ -37,8 +38,8 @@ func (jdb *exerciseRepository) FindOne(id string) (*exercises.Exercise, error) {
 }
 
 func (jdb *exerciseRepository) Create(ex *exercises.Exercise) (string, error) {
-	id := uuid.New().String()
-	ex.ID = id
+	ex.ID = uuid.New().String()
+	ex.Created = time.Now().Unix()
 
 	if err := jdb.db.Write(exercises.Collection, ex.ID, ex); err != nil {
 		return "", err
