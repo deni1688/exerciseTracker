@@ -3,7 +3,7 @@ package main
 import (
 	"deni1688/exerciseTracker/exercises"
 	"deni1688/exerciseTracker/http/rest"
-	"deni1688/exerciseTracker/jsondb"
+	"deni1688/exerciseTracker/sqlite"
 	"log"
 	"os"
 
@@ -17,7 +17,7 @@ func main() {
 		log.Fatal("Error loading the .env file:", err)
 	}
 
-	repo, err := jsondb.NewExerciseRepository()
+	repo, err := sqlite.NewExerciseRepository()
 	if err != nil {
 		log.Fatal("Error creating new repository:", err)
 	}
