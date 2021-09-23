@@ -3,15 +3,15 @@ package domain
 const Collection = "exercises"
 
 type Exercise struct {
-	ID       string  `json:"id"`
-	Category string  `json:"category"`
-	Name     string  `json:"name"`
-	Weight   float64 `json:"weight"`
-	Duration int     `json:"duration,omitempty"`
-	Distance int     `json:"distance,omitempty"`
-	Reps     int     `json:"reps,omitempty"`
-	Sets     int     `json:"sets,omitempty"`
-	Created  int64   `json:"created"`
+	ID       string  `json:"id" header:"id"`
+	Category string  `json:"category" header:"category"`
+	Name     string  `json:"name" header:"name"`
+	Weight   float64 `json:"weight" header:"weight"`
+	Duration int     `json:"duration,omitempty" header:"duration"`
+	Distance int     `json:"distance,omitempty" header:"distance"`
+	Reps     int     `json:"reps,omitempty" header:"reps"`
+	Sets     int     `json:"sets,omitempty" header:"sets"`
+	Created  int64   `json:"created" header:"created"`
 }
 
 func NewExercise(category, name string, weight float64) *Exercise {
