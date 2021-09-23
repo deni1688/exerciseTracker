@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"deni1688/exerciseTracker/exercise"
+	"deni1688/exerciseTracker/domain"
 )
 
 type ControllerFactory interface {
@@ -9,16 +9,16 @@ type ControllerFactory interface {
 }
 
 type controllerFactory struct {
-	service exercise.Service
+	service domain.Service
 }
 
-func NewControllerFactory(service exercise.Service) ControllerFactory {
+func NewControllerFactory(service domain.Service) ControllerFactory {
 	return &controllerFactory{service}
 }
 
 func (cf controllerFactory) For(resource string) Controller {
 	dc := &defaultController{cf.service, resource}
-	if resource == exercise.Collection {
+	if resource == domain.Collection {
 		return &exerciseController{dc}
 	}
 	return dc

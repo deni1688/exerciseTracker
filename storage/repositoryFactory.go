@@ -1,13 +1,13 @@
 package storage
 
 import (
-	"deni1688/exerciseTracker/exercise"
+	"deni1688/exerciseTracker/domain"
 	"deni1688/exerciseTracker/storage/jsondb"
 	"deni1688/exerciseTracker/storage/sqlite"
 	"errors"
 )
 
-func NewExerciseRepository(driver string) (exercise.Repository, error) {
+func NewExerciseRepository(driver string) (domain.Repository, error) {
 	if driver == "sqlite" {
 		return sqlite.NewExerciseRepository()
 	}

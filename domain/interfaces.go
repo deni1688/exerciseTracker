@@ -1,4 +1,4 @@
-package exercise
+package domain
 
 type Repository interface {
 	FindAll() (*[]Exercise, error)

@@ -1,13 +1,13 @@
 package rest
 
 import (
-	"deni1688/exerciseTracker/exercise"
+	"deni1688/exerciseTracker/domain"
 
 	"github.com/gin-gonic/gin"
 )
 
 type defaultController struct {
-	service  exercise.Service
+	service  domain.Service
 	resource string
 }
 
