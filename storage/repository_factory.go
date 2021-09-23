@@ -1,9 +1,9 @@
 package storage
 
 import (
-	"deni1688/exerciseTracker/domain"
-	"deni1688/exerciseTracker/storage/jsondb"
-	"deni1688/exerciseTracker/storage/sqlite"
+	"deni1688/exercise_tracker/domain"
+	"deni1688/exercise_tracker/storage/jsondb"
+	"deni1688/exercise_tracker/storage/sqlite"
 	"errors"
 )
 

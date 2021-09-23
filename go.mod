@@ -1,4 +1,4 @@
-module deni1688/exerciseTracker
+module deni1688/exercise_tracker
 
 go 1.16
 

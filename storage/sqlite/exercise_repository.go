@@ -2,8 +2,8 @@ package sqlite
 
 import (
 	"database/sql"
-	"deni1688/exerciseTracker/config"
-	"deni1688/exerciseTracker/domain"
+	"deni1688/exercise_tracker/config"
+	"deni1688/exercise_tracker/domain"
 	"errors"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"

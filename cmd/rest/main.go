@@ -1,10 +1,10 @@
 package main
 
 import (
-	"deni1688/exerciseTracker/config"
-	"deni1688/exerciseTracker/domain"
-	"deni1688/exerciseTracker/rest"
-	"deni1688/exerciseTracker/storage"
+	"deni1688/exercise_tracker/config"
+	"deni1688/exercise_tracker/domain"
+	"deni1688/exercise_tracker/rest"
+	"deni1688/exercise_tracker/storage"
 	"github.com/gin-gonic/gin"
 	"log"
 )

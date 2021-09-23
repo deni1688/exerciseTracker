@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"deni1688/exerciseTracker/domain"
+	"deni1688/exercise_tracker/domain"
 )
 
 type ControllerFactory interface {
