@@ -1,6 +1,7 @@
-api:
+server:
   port: ":9090"
-  transport: "http"
+  address: "127.0.0.1"
+  protocol: "http"
 storage:
   driver: "sqlite"
   path: "exercise_tracker_sqlite.db"

@@ -1,4 +1,4 @@
-package http
+package rest
 
 import (
 	"deni1688/exerciseTracker/domain"
