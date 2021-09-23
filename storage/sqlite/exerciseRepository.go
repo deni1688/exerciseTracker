@@ -3,7 +3,7 @@ package sqlite
 import (
 	"database/sql"
 	"deni1688/exerciseTracker/config"
-	"deni1688/exerciseTracker/domain"
+	"deni1688/exerciseTracker/exercise"
 	"errors"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
@@ -14,8 +14,8 @@ type exerciseRepository struct {
 	db *sql.DB
 }
 
-func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
-	results := make([]domain.Exercise, 0)
+func (r *exerciseRepository) FindAll() (*[]exercise.Exercise, error) {
+	results := make([]exercise.Exercise, 0)
 
 	rows, err := r.db.Query("SELECT * FROM exercises")
 	if err != nil {
@@ -23,7 +23,7 @@ func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
 	}
 
 	for rows.Next() {
-		ex := domain.Exercise{}
+		ex := exercise.Exercise{}
 		_ = rows.Scan(
 			&ex.ID,
 			&ex.Name,
@@ -42,7 +42,7 @@ func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
 	return &results, err
 }
 
-func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
+func (r *exerciseRepository) Create(ex *exercise.Exercise) (string, error) {
 	ex.ID = uuid.New().String()
 	ex.Created = time.Now().Unix()
 
@@ -69,7 +69,7 @@ func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 	return ex.ID, nil
 }
 
-func NewExerciseRepository() (domain.Repository, error) {
+func NewExerciseRepository() (exercise.Repository, error) {
 	dir := config.GetString("storage.path")
 
 	db, err := sql.Open("sqlite3", dir)

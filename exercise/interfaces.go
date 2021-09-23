@@ -1,4 +1,4 @@
-package domain
+package exercise
 
 type Repository interface {
 	FindAll() (*[]Exercise, error)
@@ -6,6 +6,6 @@ type Repository interface {
 }
 
 type Service interface {
-	FindAll() (*[]Exercise, error)
-	Create(data *Exercise) (string, error)
+	ListExercises() (*[]Exercise,error)
+	SaveExercise(*Exercise) (string, error)
 }

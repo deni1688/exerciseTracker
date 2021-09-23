@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"deni1688/exerciseTracker/domain"
+	"deni1688/exerciseTracker/exercise"
 	"encoding/json"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +12,7 @@ type exerciseController struct {
 }
 
 func (ct *exerciseController) Create(c *gin.Context) {
-	var ex *domain.Exercise
+	var ex *exercise.Exercise
 
 	err := json.NewDecoder(c.Request.Body).Decode(&ex)
 	if err != nil {
@@ -20,7 +20,7 @@ func (ct *exerciseController) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := ct.service.Create(ex)
+	id, err := ct.service.SaveExercise(ex)
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -30,7 +30,7 @@ func (ct *exerciseController) Create(c *gin.Context) {
 }
 
 func (ct *exerciseController) GetAll(c *gin.Context) {
-	results, err := ct.service.FindAll()
+	results, err := ct.service.ListExercises()
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return

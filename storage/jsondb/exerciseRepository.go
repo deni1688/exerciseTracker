@@ -2,7 +2,7 @@ package jsondb
 
 import (
 	"deni1688/exerciseTracker/config"
-	"deni1688/exerciseTracker/domain"
+	"deni1688/exerciseTracker/exercise"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -16,7 +16,7 @@ type exerciseRepository struct {
 	db *scribble.Driver
 }
 
-func NewExerciseRepository() (domain.Repository, error) {
+func NewExerciseRepository() (exercise.Repository, error) {
 	dir := config.GetString("storage.path")
 	if dir == "" {
 		return nil, errors.New("error getting the JSON_DB_DIR env variable")
@@ -30,26 +30,26 @@ func NewExerciseRepository() (domain.Repository, error) {
 	return &exerciseRepository{db}, nil
 }
 
-func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
-	records, err := r.db.ReadAll(domain.Collection)
+func (r *exerciseRepository) FindAll() (*[]exercise.Exercise, error) {
+	records, err := r.db.ReadAll(exercise.Collection)
 	if err != nil {
 		fmt.Println("Error", err)
 	}
 
-	results := make([]domain.Exercise, 0)
+	results := make([]exercise.Exercise, 0)
 	for _, record := range records {
-		ex := domain.Exercise{}
+		ex := exercise.Exercise{}
 		_ = json.Unmarshal([]byte(record), &ex)
 		results = append(results, ex)
 	}
 	return &results, nil
 }
 
-func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
+func (r *exerciseRepository) Create(ex *exercise.Exercise) (string, error) {
 	ex.ID = uuid.New().String()
 	ex.Created = time.Now().Unix()
 
-	if err := r.db.Write(domain.Collection, ex.ID, ex); err != nil {
+	if err := r.db.Write(exercise.Collection, ex.ID, ex); err != nil {
 		return "", err
 	}
 
