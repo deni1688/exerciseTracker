@@ -2,43 +2,50 @@ package cli
 
 import (
 	"deni1688/exercise_tracker/domain"
+	"encoding/json"
 	"fmt"
-	"strconv"
-
 	"github.com/spf13/cobra"
+	"log"
 )
 
+
+
+
 func getCreateCmd(service domain.Service) *cobra.Command {
-	return &cobra.Command{
+	createCmd := &cobra.Command{
 		Use:   "create",
 		Short: "creates a new exercise from args",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			ex := new(domain.Exercise)
+		Args:  cobra.MinimumNArgs(0),
+		Run: func(cmd *cobra.Command, args []string) {
+			data, err := cmd.Flags().GetString("data")
+			if err != nil {
+				log.Fatal(err)
+				return
+			}
 
-			category := args[0]
-			name := args[1]
-			weight, _ := strconv.ParseFloat(args[2], 64)
-			duration, _ := strconv.Atoi(args[2])
-			distance, _ := strconv.Atoi(args[2])
-			reps, _ := strconv.Atoi(args[2])
-			sets, _ := strconv.Atoi(args[2])
-
-			ex.Category = category
-			ex.Name = name
-			ex.Weight = weight
-			ex.Duration = duration
-			ex.Distance = distance
-			ex.Reps = reps
-			ex.Sets = sets
+			var ex *domain.Exercise
+			err = json.Unmarshal([]byte(data), &ex)
+			if err != nil {
+				log.Fatal(err)
+				return
+			}
 
 			id, err := service.SaveExercise(ex)
 			if err != nil {
-				return err
+				log.Fatal(err)
+				return
 			}
 
 			fmt.Println("created exercise:", id)
-
-			return nil
 		},
 	}
+
+	createCmd.Flags().StringP(
+		"data",
+		"d",
+		"'{}'",
+		"--data='{...exercise props}'",
+	)
+
+	return createCmd
 }

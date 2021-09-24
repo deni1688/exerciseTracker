@@ -2,11 +2,10 @@ package cli
 
 import (
 	"deni1688/exercise_tracker/domain"
-	"log"
-	"os"
-
-	"github.com/lensesio/tableprinter"
+	"encoding/json"
+	"fmt"
 	"github.com/spf13/cobra"
+	"log"
 )
 
 func getListCmd(service domain.Service) *cobra.Command {
@@ -20,7 +19,12 @@ func getListCmd(service domain.Service) *cobra.Command {
 				return
 			}
 
-			tableprinter.Print(os.Stdout, results)
+			exercisesJSON, err := json.MarshalIndent(results, "", "  ")
+			if err != nil {
+				log.Fatalf(err.Error())
+			}
+
+			fmt.Println(string(exercisesJSON))
 		},
 	}
 }
