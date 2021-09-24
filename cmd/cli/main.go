@@ -23,7 +23,7 @@ func main() {
 
 	srv := domain.NewExerciseService(repo)
 
-	exCLI := cli.NewExerciseCLI(srv)
-
-	log.Fatal("error executing cli", exCLI.Execute())
+	if err := cli.NewExerciseCLI(srv).Execute(); err != nil {
+		log.Fatal("error executing cli")
+	}
 }
