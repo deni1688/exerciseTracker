@@ -10,6 +10,7 @@ const (
 
 type Exercise struct {
 	ID             string    `json:"id,omitempty"`
+	ScheduleID     string    `json:"schedule_id"`
 	Category       string    `json:"category,omitempty"`
 	Name           string    `json:"name,omitempty"`
 	Weight         float32   `json:"weight,omitempty"`

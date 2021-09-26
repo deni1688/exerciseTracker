@@ -23,6 +23,7 @@ func NewExerciseRepository() (domain.ExerciseRepository, error) {
 
 	stmt, err := db.Prepare(`CREATE TABLE IF NOT EXISTS exercises (
 			id VARCHAR(32) PRIMARY KEY,
+			schedule_id VARCHAR(32),
 		 	name TEXT,
 		    category TEXT,
 		    weight FLOAT,
@@ -72,14 +73,15 @@ func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 
 	stmt, err := r.db.Prepare(`
 		INSERT INTO exercises 
-		(id, category, name, weight, minute_duration, km_distance, reps, sets) 
-		VALUES (?,?,?,?,?,?,?,?)
+		(id, schedule_id, category, name, weight, minute_duration, km_distance, reps, sets) 
+		VALUES (?,?,?,?,?,?,?,?,?)
     `)
 	if err != nil {
 		return "", errors.New("error creating exercise: " + err.Error())
 	}
 	_, err = stmt.Exec(
 		ex.ID,
+		ex.ScheduleID,
 		ex.Category,
 		ex.Name,
 		ex.Weight,
@@ -94,5 +96,3 @@ func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 
 	return ex.ID, nil
 }
-
-

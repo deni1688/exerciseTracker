@@ -25,7 +25,7 @@ func main() {
 	es := domain.NewExerciseService(er)
 
 	router := gin.Default()
-	http.NewResource(router, http.HandlerFor(es, domain.ExerciseCollection))
+	http.NewResource(router, http.GetHandlerFor(es, domain.ExerciseCollection))
 
 	log.Fatal("error starting server:", router.Run(config.GetString("server.port")))
 }
