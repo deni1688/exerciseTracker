@@ -4,12 +4,12 @@ import "errors"
 
 var ErrInvalidCategory = errors.New("invalid exercise category")
 
-func NewExerciseService(r Repository) Service {
+func NewExerciseService(r ExerciseRepository) ExerciseService {
 	return &exercisesService{r}
 }
 
 type exercisesService struct {
-	repo Repository
+	repo ExerciseRepository
 }
 
 func (s *exercisesService) ListExercises() (*[]Exercise, error) {

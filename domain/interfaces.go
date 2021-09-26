@@ -1,11 +1,11 @@
 package domain
 
-type Repository interface {
+type ExerciseRepository interface {
 	FindAll() (*[]Exercise, error)
 	Create(*Exercise) (string, error)
 }
 
-type Service interface {
+type ExerciseService interface {
 	ListExercises() (*[]Exercise,error)
 	SaveExercise(*Exercise) (string, error)
 }

@@ -7,7 +7,7 @@ import (
 	"errors"
 )
 
-func NewExerciseRepository(driver string) (domain.Repository, error) {
+func NewExerciseRepository(driver string) (domain.ExerciseRepository, error) {
 	if driver == "sqlite" {
 		return sqlite.NewExerciseRepository()
 	}

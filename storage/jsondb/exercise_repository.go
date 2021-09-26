@@ -16,7 +16,7 @@ type exerciseRepository struct {
 	db *scribble.Driver
 }
 
-func NewExerciseRepository() (domain.Repository, error) {
+func NewExerciseRepository() (domain.ExerciseRepository, error) {
 	dir := config.GetString("storage.path")
 	if dir == "" {
 		return nil, errors.New("error getting the JSON_DB_DIR env variable")

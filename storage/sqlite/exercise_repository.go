@@ -13,7 +13,7 @@ type exerciseRepository struct {
 	db *sql.DB
 }
 
-func NewExerciseRepository() (domain.Repository, error) {
+func NewExerciseRepository() (domain.ExerciseRepository, error) {
 	dir := config.GetString("storage.path")
 
 	db, err := sql.Open("sqlite3", dir)

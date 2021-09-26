@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-func getListCmd(service domain.Service) *cobra.Command {
+func getListCmd(service domain.ExerciseService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "list",
 		Short: "lists the stored exercises",

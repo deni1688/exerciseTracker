@@ -9,14 +9,14 @@ const (
 )
 
 type Exercise struct {
-	ID             string     `json:"id,omitempty"`
-	Category       string     `json:"category,omitempty"`
-	Name           string     `json:"name,omitempty"`
-	Weight         float32    `json:"weight,omitempty"`
-	MinuteDuration int32      `json:"minute_duration,omitempty"`
-	KmDistance     float32    `json:"km_distance,omitempty"`
-	Reps           int32      `json:"reps,omitempty"`
-	Sets           int32      `json:"sets,omitempty"`
+	ID             string    `json:"id,omitempty"`
+	Category       string    `json:"category,omitempty"`
+	Name           string    `json:"name,omitempty"`
+	Weight         float32   `json:"weight,omitempty"`
+	MinuteDuration int32     `json:"minute_duration,omitempty"`
+	KmDistance     float32   `json:"km_distance,omitempty"`
+	Reps           int32     `json:"reps,omitempty"`
+	Sets           int32     `json:"sets,omitempty"`
 	Created        time.Time `json:"created,omitempty"`
 }
 

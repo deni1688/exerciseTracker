@@ -8,7 +8,7 @@ import (
 	"log"
 )
 
-func getCreateCmd(service domain.Service) *cobra.Command {
+func getCreateCmd(service domain.ExerciseService) *cobra.Command {
 	createCmd := &cobra.Command{
 		Use:   "create",
 		Short: "creates a new exercise from args",

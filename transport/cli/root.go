@@ -19,7 +19,7 @@ func (ec *exerciseCLI) Execute() error {
 
 
 
-func NewExerciseCLI(service domain.Service) ExerciseCLI {
+func NewExerciseCLI(service domain.ExerciseService) ExerciseCLI {
 	rootCmd := &cobra.Command{
 		Use:   "exercise tracker cli",
 		Short: "cli tool for managing exercises",

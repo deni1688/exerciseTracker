@@ -8,10 +8,11 @@ import (
 )
 
 type exerciseHandler struct {
-	*defaultHandler
+	service domain.ExerciseService
+	resource string
 }
 
-func (ct *exerciseHandler) Create(c *gin.Context) {
+func (h *exerciseHandler) Create(c *gin.Context) {
 	var ex *domain.Exercise
 
 	err := json.NewDecoder(c.Request.Body).Decode(&ex)
@@ -20,7 +21,7 @@ func (ct *exerciseHandler) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := ct.service.SaveExercise(ex)
+	id, err := h.service.SaveExercise(ex)
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -29,8 +30,8 @@ func (ct *exerciseHandler) Create(c *gin.Context) {
 	c.JSON(200, gin.H{"id": id})
 }
 
-func (ct *exerciseHandler) GetAll(c *gin.Context) {
-	results, err := ct.service.ListExercises()
+func (h *exerciseHandler) GetAll(c *gin.Context) {
+	results, err := h.service.ListExercises()
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
@@ -40,4 +41,8 @@ func (ct *exerciseHandler) GetAll(c *gin.Context) {
 		"data":  results,
 		"total": len(*results),
 	})
+}
+
+func (h *exerciseHandler) GetResource() string {
+	return h.resource
 }

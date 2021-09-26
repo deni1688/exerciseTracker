@@ -17,16 +17,15 @@ func main() {
 		log.Fatal("error loading the config file:", err)
 	}
 
-	repo, err := storage.NewExerciseRepository(config.GetString("storage.driver"))
+	er, err := storage.NewExerciseRepository(config.GetString("storage.driver"))
 	if err != nil {
 		log.Fatal("error creating new repository:", err)
 	}
 
-	srv := domain.NewExerciseService(repo)
-	handler := http.NewHandlerFactory(srv)
+	es := domain.NewExerciseService(er)
 
 	router := gin.Default()
-	http.NewResource(router, handler.For(domain.ExerciseCollection))
+	http.NewResource(router, http.HandlerFor(es, domain.ExerciseCollection))
 
 	log.Fatal("error starting server:", router.Run(config.GetString("server.port")))
 }
