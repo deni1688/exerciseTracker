@@ -8,9 +8,6 @@ import (
 	"log"
 )
 
-
-
-
 func getCreateCmd(service domain.Service) *cobra.Command {
 	createCmd := &cobra.Command{
 		Use:   "create",

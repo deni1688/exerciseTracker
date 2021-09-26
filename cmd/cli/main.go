@@ -1,10 +1,10 @@
 package main
 
 import (
-	"deni1688/exercise_tracker/cli"
 	"deni1688/exercise_tracker/config"
 	"deni1688/exercise_tracker/domain"
 	"deni1688/exercise_tracker/storage"
+	"deni1688/exercise_tracker/transport/cli"
 	"log"
 )
 

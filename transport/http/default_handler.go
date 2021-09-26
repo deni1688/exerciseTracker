@@ -1,4 +1,4 @@
-package rest
+package http
 
 import (
 	"deni1688/exercise_tracker/domain"
@@ -6,22 +6,22 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type defaultController struct {
+type defaultHandler struct {
 	service  domain.Service
 	resource string
 }
 
-func (ct *defaultController) GetResource() string {
+func (ct *defaultHandler) GetResource() string {
 	return ct.resource
 }
 
-func (ct *defaultController) Create(c *gin.Context) {
+func (ct *defaultHandler) Create(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "With not implemented for " + ct.resource,
 	})
 }
 
-func (ct *defaultController) GetAll(c *gin.Context) {
+func (ct *defaultHandler) GetAll(c *gin.Context) {
 	c.JSON(200, gin.H{
 		"message": "GetAll not implemented " + ct.resource,
 	})

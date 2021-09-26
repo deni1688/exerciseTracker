@@ -3,8 +3,8 @@ package main
 import (
 	"deni1688/exercise_tracker/config"
 	"deni1688/exercise_tracker/domain"
-	"deni1688/exercise_tracker/rest"
 	"deni1688/exercise_tracker/storage"
+	"deni1688/exercise_tracker/transport/http"
 	"github.com/gin-gonic/gin"
 	"log"
 )
@@ -23,10 +23,10 @@ func main() {
 	}
 
 	srv := domain.NewExerciseService(repo)
-	controller := rest.NewControllerFactory(srv)
+	handler := http.NewHandlerFactory(srv)
 
 	router := gin.Default()
-	rest.NewResource(router, controller.For(domain.Collection))
+	http.NewResource(router, handler.For(domain.Collection))
 
 	log.Fatal("error starting server:", router.Run(config.GetString("server.port")))
 }

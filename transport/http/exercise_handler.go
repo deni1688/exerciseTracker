@@ -1,4 +1,4 @@
-package rest
+package http
 
 import (
 	"deni1688/exercise_tracker/domain"
@@ -7,11 +7,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type exerciseController struct {
-	*defaultController
+type exerciseHandler struct {
+	*defaultHandler
 }
 
-func (ct *exerciseController) Create(c *gin.Context) {
+func (ct *exerciseHandler) Create(c *gin.Context) {
 	var ex *domain.Exercise
 
 	err := json.NewDecoder(c.Request.Body).Decode(&ex)
@@ -29,7 +29,7 @@ func (ct *exerciseController) Create(c *gin.Context) {
 	c.JSON(200, gin.H{"id": id})
 }
 
-func (ct *exerciseController) GetAll(c *gin.Context) {
+func (ct *exerciseHandler) GetAll(c *gin.Context) {
 	results, err := ct.service.ListExercises()
 	if err != nil {
 		c.JSON(400, gin.H{"error": err.Error()})
