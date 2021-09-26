@@ -3,5 +3,5 @@ server:
   address: "127.0.0.1"
   protocol: "http"
 storage:
-  driver: "json"
-  path: "exercise_tracker_json_db"
+  driver: "sqlite"
+  path: "exercise_tracker_sqlite.db"
