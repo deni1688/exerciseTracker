@@ -31,7 +31,7 @@ func NewExerciseRepository() (domain.Repository, error) {
 }
 
 func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
-	records, err := r.db.ReadAll(domain.Collection)
+	records, err := r.db.ReadAll(domain.ExerciseCollection)
 	if err != nil {
 		fmt.Println("Error", err)
 	}
@@ -49,7 +49,7 @@ func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 	ex.ID = uuid.New().String()
 	ex.Created = time.Now().Unix()
 
-	if err := r.db.Write(domain.Collection, ex.ID, ex); err != nil {
+	if err := r.db.Write(domain.ExerciseCollection, ex.ID, ex); err != nil {
 		return "", err
 	}
 

@@ -1,6 +1,10 @@
 package domain
 
-const Collection = "exercises"
+const (
+	ExerciseCollection = "exercises"
+	CardioCategory = "cardio"
+	CalisthenicsCategory = "calisthenics"
+)
 
 type Exercise struct {
 	ID       string  `json:"id" header:"id"`

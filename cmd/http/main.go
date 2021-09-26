@@ -26,7 +26,7 @@ func main() {
 	handler := http.NewHandlerFactory(srv)
 
 	router := gin.Default()
-	http.NewResource(router, handler.For(domain.Collection))
+	http.NewResource(router, handler.For(domain.ExerciseCollection))
 
 	log.Fatal("error starting server:", router.Run(config.GetString("server.port")))
 }

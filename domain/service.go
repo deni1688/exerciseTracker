@@ -2,7 +2,7 @@ package domain
 
 import "errors"
 
-var invalidCategoryErr = errors.New("invalid exercise category")
+var ErrInvalidCategory = errors.New("invalid exercise category")
 
 func NewExerciseService(r Repository) Service {
 	return &exercisesService{r}
@@ -17,7 +17,7 @@ func (s *exercisesService) ListExercises() (*[]Exercise, error) {
 }
 
 func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
-	if ex.Category == "cardio" {
+	if ex.Category == CardioCategory {
 		return s.repo.Create(NewExercise(
 			ex.Category,
 			ex.Name,
@@ -25,7 +25,7 @@ func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
 		).ForCardio(ex.Duration, ex.Distance))
 	}
 
-	if ex.Category == "calisthenics" {
+	if ex.Category == CalisthenicsCategory {
 		return s.repo.Create(NewExercise(
 			ex.Category,
 			ex.Name,
@@ -33,5 +33,5 @@ func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
 		).ForCalisthenics(ex.Reps, ex.Sets))
 	}
 
-	return "", invalidCategoryErr
+	return "", ErrInvalidCategory
 }

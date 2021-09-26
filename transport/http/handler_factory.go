@@ -18,7 +18,7 @@ func NewHandlerFactory(service domain.Service) HandlerFactory {
 
 func (cf handlerFactory) For(resource string) Handler {
 	dc := &defaultHandler{cf.service, resource}
-	if resource == domain.Collection {
+	if resource == domain.ExerciseCollection {
 		return &exerciseHandler{dc}
 	}
 	return dc
