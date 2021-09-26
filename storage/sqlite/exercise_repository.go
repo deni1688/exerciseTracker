@@ -7,11 +7,36 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
-	"time"
 )
 
 type exerciseRepository struct {
 	db *sql.DB
+}
+
+func NewExerciseRepository() (domain.Repository, error) {
+	dir := config.GetString("storage.path")
+
+	db, err := sql.Open("sqlite3", dir)
+	if err != nil {
+		return nil, errors.New("error connecting sql database: " + err.Error())
+	}
+
+	stmt, err := db.Prepare(`CREATE TABLE IF NOT EXISTS exercises (
+			id VARCHAR(32) PRIMARY KEY,
+		 	name TEXT,
+		    category TEXT,
+		    weight FLOAT,
+		    minute_duration FLOAT,
+        	km_distance INT,
+            reps INT,
+            sets INT,
+            created DATE DEFAULT CURRENT_TIMESTAMP)`)
+
+	_, err = stmt.Exec()
+	if err != nil {
+		return nil, errors.New("error creating exercises table: " + err.Error())
+	}
+	return &exerciseRepository{db}, nil
 }
 
 func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
@@ -29,8 +54,8 @@ func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
 			&ex.Name,
 			&ex.Category,
 			&ex.Weight,
-			&ex.Duration,
-			&ex.Distance,
+			&ex.MinuteDuration,
+			&ex.KmDistance,
 			&ex.Reps,
 			&ex.Sets,
 			&ex.Created,
@@ -44,23 +69,24 @@ func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
 
 func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 	ex.ID = uuid.New().String()
-	ex.Created = time.Now().Unix()
 
 	stmt, err := r.db.Prepare(`
 		INSERT INTO exercises 
-		(id, category, name, weight, duration, distance, reps, sets, created) 
-		VALUES (?,?,?,?,?,?,?,?, ?)
+		(id, category, name, weight, minute_duration, km_distance, reps, sets) 
+		VALUES (?,?,?,?,?,?,?,?)
     `)
+	if err != nil {
+		return "", errors.New("error creating exercise: " + err.Error())
+	}
 	_, err = stmt.Exec(
 		ex.ID,
 		ex.Category,
 		ex.Name,
 		ex.Weight,
-		ex.Duration,
-		ex.Distance,
+		ex.MinuteDuration,
+		ex.KmDistance,
 		ex.Reps,
 		ex.Sets,
-		ex.Created,
 	)
 	if err != nil {
 		return "", errors.New("error creating exercise: " + err.Error())
@@ -69,28 +95,4 @@ func (r *exerciseRepository) Create(ex *domain.Exercise) (string, error) {
 	return ex.ID, nil
 }
 
-func NewExerciseRepository() (domain.Repository, error) {
-	dir := config.GetString("storage.path")
 
-	db, err := sql.Open("sqlite3", dir)
-	if err != nil {
-		return nil, errors.New("error connecting sql database: " + err.Error())
-	}
-
-	stmt, err := db.Prepare(`CREATE TABLE IF NOT EXISTS exercises (
-			id VARCHAR(32) PRIMARY KEY,
-		 	name TEXT,
-		    category TEXT,
-		    weight FLOAT,
-		    duration INT,
-        	distance INT,
-            reps INT,
-            sets INT,
-            created INT)`)
-
-	_, err = stmt.Exec()
-	if err != nil {
-		return nil, errors.New("error creating exercises table: " + err.Error())
-	}
-	return &exerciseRepository{db}, nil
-}

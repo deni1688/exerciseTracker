@@ -22,7 +22,7 @@ func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
 			ex.Category,
 			ex.Name,
 			ex.Weight,
-		).ForCardio(ex.Duration, ex.Distance))
+		).ForCardio(ex.MinuteDuration, ex.KmDistance))
 	}
 
 	if ex.Category == CalisthenicsCategory {
