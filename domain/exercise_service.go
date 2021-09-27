@@ -1,11 +1,14 @@
 package domain
 
-func NewExerciseService(r ExerciseRepository) ExerciseService {
-	return &exercisesService{r}
+import "log"
+
+func NewExerciseService(r ExerciseRepository, b ExerciseBroker) ExerciseService {
+	return &exercisesService{r, b}
 }
 
 type exercisesService struct {
-	repo ExerciseRepository
+	repo   ExerciseRepository
+	broker ExerciseBroker
 }
 
 func (s *exercisesService) ListExercises() (*[]Exercise, error) {
@@ -18,5 +21,14 @@ func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
 		return "", err
 	}
 
-	return s.repo.Create(newEx)
+	id, err := s.repo.Create(newEx)
+	if err != nil {
+		return "", err
+	}
+
+	if err := s.broker.Publish(newEx); err != nil {
+		log.Println("error publishing new exercise", err)
+	}
+
+	return id, nil
 }
