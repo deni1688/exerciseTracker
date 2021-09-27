@@ -9,3 +9,7 @@ type ExerciseService interface {
 	ListExercises() (*[]Exercise, error)
 	SaveExercise(*Exercise) (string, error)
 }
+
+type ExerciseBroker interface {
+	Publish(*Exercise) error
+}

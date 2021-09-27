@@ -17,8 +17,6 @@ func (ec *exerciseCLI) Execute() error {
 	return ec.rootCmd.Execute()
 }
 
-
-
 func NewExerciseCLI(service domain.ExerciseService) ExerciseCLI {
 	rootCmd := &cobra.Command{
 		Use:   "exercise tracker cli",
@@ -30,6 +28,3 @@ func NewExerciseCLI(service domain.ExerciseService) ExerciseCLI {
 
 	return &exerciseCLI{rootCmd}
 }
-
-
-

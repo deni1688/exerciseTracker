@@ -8,7 +8,7 @@ import (
 )
 
 type exerciseHandler struct {
-	service domain.ExerciseService
+	service  domain.ExerciseService
 	resource string
 }
 
