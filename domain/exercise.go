@@ -1,22 +1,20 @@
 package domain
 
 import (
-	"github.com/go-playground/validator/v10"
+	"errors"
+	"strings"
 	"time"
 )
 
-const (
-	ExerciseCollection = "exercises"
-)
-
-var validate = validator.New()
+const ExerciseCollection = "exercises"
+var ValidCategories = []string{"cardio", "calisthenics"}
 
 type Exercise struct {
 	ID        string    `json:"id,omitempty"`
 	Category  string    `json:"category" validate:"required"`
 	Name      string    `json:"name" validate:"required"`
-	Sets      int32     `json:"sets"`
 	Weight    float32   `json:"weight" validate:"gte=25"`
+	Sets      int32     `json:"sets"`
 	Unit      string    `json:"unit" validate:"required"`
 	Value     float32   `json:"value" validate:"required"`
 	StartDate time.Time `json:"start_date,omitempty"`
@@ -30,7 +28,7 @@ func NewExercise(
 	unit string,
 	sets int32,
 	value float32,
-) (*Exercise, error) {
+) *Exercise {
 	ex := new(Exercise)
 	ex.Category = category
 	ex.Name = name
@@ -39,10 +37,18 @@ func NewExercise(
 	ex.Sets = sets
 	ex.Value = value
 
-	err := validate.Struct(ex)
-	if err != nil {
-		return nil, err
+	return ex
+}
+
+func (ex *Exercise) Validate() error {
+
+	if ex.Category == "" {
+		return errors.New("category is required")
 	}
 
-	return ex, nil
+	if !strings.Contains(strings.Join(ValidCategories, ""), ex.Category) {
+		return errors.New("invalid category")
+	}
+
+	return nil
 }
