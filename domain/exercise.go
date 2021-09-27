@@ -1,42 +1,48 @@
 package domain
 
-import "time"
-
-const (
-	ExerciseCollection   = "exercises"
-	CardioCategory       = "cardio"
-	CalisthenicsCategory = "calisthenics"
+import (
+	"github.com/go-playground/validator/v10"
+	"time"
 )
 
+const (
+	ExerciseCollection = "exercises"
+)
+
+var validate = validator.New()
+
 type Exercise struct {
-	ID             string    `json:"id,omitempty"`
-	ScheduleID     string    `json:"schedule_id"`
-	Category       string    `json:"category,omitempty"`
-	Name           string    `json:"name,omitempty"`
-	Weight         float32   `json:"weight,omitempty"`
-	MinuteDuration int32     `json:"minute_duration,omitempty"`
-	KmDistance     float32   `json:"km_distance,omitempty"`
-	Reps           int32     `json:"reps,omitempty"`
-	Sets           int32     `json:"sets,omitempty"`
-	Created        time.Time `json:"created,omitempty"`
+	ID        string    `json:"id,omitempty"`
+	Category  string    `json:"category" validate:"required"`
+	Name      string    `json:"name" validate:"required"`
+	Sets      int32     `json:"sets"`
+	Weight    float32   `json:"weight" validate:"gte=25"`
+	Unit      string    `json:"unit" validate:"required"`
+	Value     float32   `json:"value" validate:"required"`
+	StartDate time.Time `json:"start_date,omitempty"`
+	EndDate   time.Time `json:"end_date,omitempty"`
+	Created   time.Time `json:"created,omitempty"`
 }
 
-func NewExercise(category, name string, weight float32) *Exercise {
+func NewExercise(
+	category, name string,
+	weight float32,
+	unit string,
+	sets int32,
+	value float32,
+) (*Exercise, error) {
 	ex := new(Exercise)
 	ex.Category = category
 	ex.Name = name
 	ex.Weight = weight
-	return ex
-}
-
-func (ex *Exercise) ForCardio(duration int32, distance float32) *Exercise {
-	ex.MinuteDuration = duration
-	ex.KmDistance = distance
-	return ex
-}
-
-func (ex *Exercise) ForCalisthenics(reps, sets int32) *Exercise {
-	ex.Reps = reps
+	ex.Unit = unit
 	ex.Sets = sets
-	return ex
+	ex.Value = value
+
+	err := validate.Struct(ex)
+	if err != nil {
+		return nil, err
+	}
+
+	return ex, nil
 }
