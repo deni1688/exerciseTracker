@@ -13,10 +13,10 @@ func (s *exercisesService) ListExercises() (*[]Exercise, error) {
 }
 
 func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
-	validEx, err := NewExercise(ex.Category, ex.Name, ex.Weight, ex.Unit, ex.Sets, ex.Value)
-	if err != nil {
+	newEx := NewExercise(ex.Category, ex.Name, ex.Weight, ex.Unit, ex.Sets, ex.Value)
+	if err := newEx.Validate(); err != nil {
 		return "", err
 	}
 
-	return s.repo.Create(validEx)
+	return s.repo.Create(newEx)
 }
