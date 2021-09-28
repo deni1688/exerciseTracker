@@ -22,21 +22,12 @@ func NewConsumer() *Consumer {
 		log.Fatal("error opening a channel", err)
 	}
 
-	err = ch.ExchangeDeclare(
-		ExerciseExchange,
-		"topic",
-		true,
-		false,
-		false,
-		false,
-		nil,
-	)
-	if err != nil {
-		log.Fatal("error initializing an exchange", err)
-	}
+	return &Consumer{conn, ch}
+}
 
-	_, err = ch.QueueDeclare(
-		CreatedExercise,
+func (c *Consumer) GetMessages(exerciseEvent string) (<-chan amqp.Delivery, error) {
+	_, err := c.channel.QueueDeclare(
+		exerciseEvent,
 		false,
 		false,
 		true,
@@ -47,21 +38,17 @@ func NewConsumer() *Consumer {
 		log.Fatal("error initializing a queue")
 	}
 
-	err = ch.QueueBind(
-		CreatedExercise,
-		CreatedExercise,
+	err = c.channel.QueueBind(
+		exerciseEvent,
+		exerciseEvent,
 		ExerciseExchange,
 		false,
 		nil)
 	if err != nil {
 		log.Fatal("error binding a queue", err)
 	}
-
-	return &Consumer{conn, ch}
-}
-func (c *Consumer) GetMessages() (<-chan amqp.Delivery, error) {
 	return c.channel.Consume(
-		CreatedExercise,
+		exerciseEvent,
 		"",
 		true,
 		false,

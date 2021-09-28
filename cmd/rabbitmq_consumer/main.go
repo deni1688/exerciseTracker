@@ -16,7 +16,7 @@ func main() {
 	}
 
 	consumer := rabbitmq.NewConsumer()
-	msgs, err := consumer.GetMessages()
+	msgs, err := consumer.GetMessages(rabbitmq.CreatedExercise)
 	if err != nil {
 		log.Fatal("error consuming queue messages:", err)
 	}
