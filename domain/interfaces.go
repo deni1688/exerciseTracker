@@ -12,4 +12,5 @@ type ExerciseService interface {
 
 type ExerciseBroker interface {
 	PublishCreated(*Exercise) error
+	PublishUpdated(*Exercise) error
 }

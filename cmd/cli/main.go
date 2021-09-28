@@ -5,25 +5,28 @@ import (
 	"deni1688/exercise_tracker/domain"
 	"deni1688/exercise_tracker/storage"
 	"deni1688/exercise_tracker/transport/cli"
+	"deni1688/exercise_tracker/transport/rabbitmq"
 	"log"
 )
 
 func main() {
-	env := config.GetFlags()
+	env := config.GetEnv()
 
 	err := config.LoadConfigFile(env)
 	if err != nil {
 		log.Fatal("error loading the config file:", err)
 	}
 
-	repo, err := storage.NewExerciseRepository(config.GetString("storage.driver"))
+	er, err := storage.NewExerciseRepository(config.GetString("storage.driver"))
 	if err != nil {
 		log.Fatal("error creating new repository:", err)
 	}
 
-	srv := domain.NewExerciseService(repo)
+	br := rabbitmq.NewProducer()
+	defer br.Close()
+	es := domain.NewExerciseService(er, br)
 
-	if err := cli.NewExerciseCLI(srv).Execute(); err != nil {
+	if err := cli.NewExerciseCLI(es).Execute(); err != nil {
 		log.Fatal("error executing cli")
 	}
 }

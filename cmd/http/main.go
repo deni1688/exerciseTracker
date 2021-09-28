@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	env := config.GetFlags()
+	env := config.GetEnv()
 
 	err := config.LoadConfigFile(env)
 	if err != nil {
@@ -23,7 +23,8 @@ func main() {
 		log.Fatal("error creating new repository:", err)
 	}
 
-	br := rabbitmq.NewRabbitMQ()
+	br := rabbitmq.NewProducer()
+	defer br.Close()
 	es := domain.NewExerciseService(er, br)
 
 	router := gin.Default()

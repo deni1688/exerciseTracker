@@ -18,7 +18,7 @@ func GetString(key string) string {
 	return viper.GetString(key)
 }
 
-func GetFlags() string {
+func GetEnv() string {
 	env := flag.String("env", "testing", "sets the config environment")
 	flag.Parse()
 	return *env
