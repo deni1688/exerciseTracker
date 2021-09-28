@@ -9,12 +9,13 @@ import (
 const ExerciseCollection = "exercises"
 
 var (
-	ValidCategories    = []string{"cardio", "calisthenics"}
-	ErrInvalidCategory = errors.New("invalid category")
-	ErrInvalidWeight   = errors.New("invalid weight")
-	ErrInvalidUnit     = errors.New("invalid unit")
-	ErrInvalidSets     = errors.New("invalid sets")
-	ErrInvalidValue    = errors.New("invalid value")
+	ValidCategories     = []string{"cardio", "calisthenics"}
+	ErrCategoryRequired = errors.New("category is required")
+	ErrInvalidCategory  = errors.New("invalid category")
+	ErrInvalidWeight    = errors.New("invalid weight")
+	ErrInvalidUnit      = errors.New("invalid unit")
+	ErrInvalidSets      = errors.New("invalid sets")
+	ErrInvalidValue     = errors.New("invalid value")
 )
 
 type Exercise struct {
@@ -30,7 +31,7 @@ type Exercise struct {
 	Created   time.Time `json:"created,omitempty"`
 }
 
-func NewExercise(
+func newExercise(
 	category, name string,
 	weight float32,
 	unit string,
@@ -49,27 +50,21 @@ func NewExercise(
 }
 
 func (ex *Exercise) Validate() error {
-
 	if ex.Category == "" {
-		return errors.New("category is required")
+		return ErrCategoryRequired
 	}
-
 	if !strings.Contains(strings.Join(ValidCategories, ""), ex.Category) {
 		return ErrInvalidCategory
 	}
-
 	if ex.Weight <= 0 {
 		return ErrInvalidWeight
 	}
-
 	if ex.Unit == "" {
 		return ErrInvalidUnit
 	}
-
 	if ex.Sets < 0 {
 		return ErrInvalidSets
 	}
-
 	if ex.Value <= 0 {
 		return ErrInvalidValue
 	}

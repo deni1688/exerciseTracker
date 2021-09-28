@@ -5,3 +5,6 @@ server:
 storage:
   driver: "sqlite"
   path: "exercise_tracker_sqlite.db"
+broker:
+  driver: "rabbitmq"
+  uri: "amqp://guest:guest@localhost:5672"

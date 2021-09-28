@@ -4,8 +4,8 @@ import (
 	"deni1688/exercise_tracker/config"
 	"deni1688/exercise_tracker/domain"
 	"deni1688/exercise_tracker/storage"
-	"deni1688/exercise_tracker/transport/broker"
 	"deni1688/exercise_tracker/transport/http"
+	"deni1688/exercise_tracker/transport/rabbitmq"
 	"github.com/gin-gonic/gin"
 	"log"
 )
@@ -23,8 +23,8 @@ func main() {
 		log.Fatal("error creating new repository:", err)
 	}
 
-	b := broker.NewBroker(domain.ExerciseCollection)
-	es := domain.NewExerciseService(er, b)
+	br := rabbitmq.NewRabbitMQ()
+	es := domain.NewExerciseService(er, br)
 
 	router := gin.Default()
 	http.NewResource(router, http.GetHandlerFor(es, domain.ExerciseCollection))
