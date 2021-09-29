@@ -7,7 +7,6 @@ import (
 	"errors"
 	"github.com/google/uuid"
 	_ "github.com/mattn/go-sqlite3"
-	"log"
 )
 
 type exerciseRepository struct {
@@ -63,8 +62,6 @@ func (r *exerciseRepository) FindAll() (*[]domain.Exercise, error) {
 			&ex.EndDate,
 			&ex.Created,
 		)
-
-		log.Println(ex.Created)
 
 		results = append(results, ex)
 	}
