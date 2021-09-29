@@ -31,6 +31,15 @@ type Exercise struct {
 	Created   time.Time `json:"created,omitempty"`
 }
 
+type ExerciseRequest struct {
+	Category  string    `json:"category"`
+	Name      string    `json:"name"`
+	Weight    float32   `json:"weight"`
+	Sets      int32     `json:"sets"`
+	Unit      string    `json:"unit"`
+	Value     float32   `json:"value"`
+}
+
 func newExercise(
 	category, name string,
 	weight float32,

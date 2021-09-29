@@ -3,6 +3,7 @@ package http
 import (
 	"deni1688/exercise_tracker/domain"
 	"encoding/json"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,11 +14,11 @@ type exerciseHandler struct {
 }
 
 func (h *exerciseHandler) Create(c *gin.Context) {
-	var ex *domain.Exercise
+	var ex *domain.ExerciseRequest
 
 	err := json.NewDecoder(c.Request.Body).Decode(&ex)
 	if err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -33,11 +34,11 @@ func (h *exerciseHandler) Create(c *gin.Context) {
 func (h *exerciseHandler) GetAll(c *gin.Context) {
 	results, err := h.service.ListExercises()
 	if err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(200, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"data":  results,
 		"total": len(*results),
 	})

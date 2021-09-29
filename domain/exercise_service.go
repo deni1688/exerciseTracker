@@ -15,7 +15,7 @@ func (s *exercisesService) ListExercises() (*[]Exercise, error) {
 	return s.repo.FindAll()
 }
 
-func (s *exercisesService) SaveExercise(ex *Exercise) (string, error) {
+func (s *exercisesService) SaveExercise(ex *ExerciseRequest) (string, error) {
 	newEx := newExercise(ex.Category, ex.Name, ex.Weight, ex.Unit, ex.Sets, ex.Value)
 	if err := newEx.Validate(); err != nil {
 		return "", err

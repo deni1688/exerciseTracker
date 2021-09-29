@@ -20,7 +20,7 @@ func getCreateCmd(service domain.ExerciseService) *cobra.Command {
 				return
 			}
 
-			var ex *domain.Exercise
+			var ex *domain.ExerciseRequest
 			err = json.Unmarshal([]byte(data), &ex)
 			if err != nil {
 				log.Fatal(err)

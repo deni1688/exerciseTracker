@@ -1,17 +1,18 @@
 package rabbitmq
 
 import (
-	"deni1688/exercise_tracker/config"
 	"deni1688/exercise_tracker/domain"
 	"encoding/json"
 	"github.com/streadway/amqp"
 	"log"
 )
 
+type ExerciseEventType string
+
 const (
-	UpdatedExercise  = "created_exercises"
-	CreatedExercise  = "updated_exercises"
-	ExerciseExchange = "exercise_events"
+	UpdatedExercise  ExerciseEventType = "exercise.updated"
+	CreatedExercise  ExerciseEventType = "exercise.created"
+	exerciseExchange string = "exercise.events"
 )
 
 type Producer struct {
@@ -19,18 +20,9 @@ type Producer struct {
 	channel    *amqp.Channel
 }
 
-func NewProducer() *Producer {
-	conn, err := amqp.Dial(config.GetString("broker.uri"))
-	if err != nil {
-		log.Fatal("error initializing broker connection", err)
-	}
-	ch, err := conn.Channel()
-	if err != nil {
-		log.Fatal("error initializing broker channel", err)
-	}
-
-	if err = ch.ExchangeDeclare(
-		ExerciseExchange,
+func NewProducer(conn *amqp.Connection, ch *amqp.Channel) *Producer {
+	if err := ch.ExchangeDeclare(
+		exerciseExchange,
 		"topic",
 		true,
 		false,
@@ -50,12 +42,12 @@ func (p *Producer) PublishCreated(ex *domain.Exercise) error {
 func (p *Producer) PublishUpdated(ex *domain.Exercise) error {
 	return p.publish(ex, UpdatedExercise)
 }
-func (p *Producer) publish(ex *domain.Exercise, exerciseEvent string) error {
+func (p *Producer) publish(ex *domain.Exercise, ee ExerciseEventType) error {
 	bt, _ := json.Marshal(ex)
-
+	log.Println(ee)
 	return p.channel.Publish(
-		ExerciseExchange,
-		exerciseEvent,
+		exerciseExchange,
+		string(ee),
 		false,
 		false,
 		amqp.Publishing{

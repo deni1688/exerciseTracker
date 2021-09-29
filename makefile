@@ -6,7 +6,7 @@ build_cli:
 	go build -o exercise_tracker_cli cmd/cli/main.go
 run_http:
 	go run cmd/http/main.go
-run_broker:
+run_consumer:
 	go run cmd/rabbitmq/main.go
 run_cli:
 	go run cmd/cli/main.go

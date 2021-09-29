@@ -7,7 +7,7 @@ type ExerciseRepository interface {
 
 type ExerciseService interface {
 	ListExercises() (*[]Exercise, error)
-	SaveExercise(*Exercise) (string, error)
+	SaveExercise(request *ExerciseRequest) (string, error)
 }
 
 type ExerciseBroker interface {
