@@ -3,8 +3,8 @@ package main
 import (
 	"deni1688/exercise_tracker/config"
 	"deni1688/exercise_tracker/domain"
-	http2 "deni1688/exercise_tracker/http"
-	rabbitmq2 "deni1688/exercise_tracker/rabbitmq"
+	"deni1688/exercise_tracker/rabbitmq"
+	"deni1688/exercise_tracker/rest"
 	"deni1688/exercise_tracker/storage"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -23,18 +23,18 @@ func main() {
 		log.Fatal("error creating new repository:", err)
 	}
 
-	conn, ch, err := rabbitmq2.Connect()
+	conn, ch, err := rabbitmq.Connect()
 	if err != nil {
 		log.Fatal("error initializing connection or channel:", err)
 	}
 
-	br := rabbitmq2.NewProducer(conn, ch)
+	br := rabbitmq.NewProducer(conn, ch)
 	defer br.Close()
 
 	es := domain.NewExerciseService(er, br)
 
 	router := gin.Default()
-	http2.NewResource(router, http2.GetHandlerFor(es, domain.ExerciseCollection))
+	rest.NewResource(router, rest.GetHandlerFor(es, domain.ExerciseCollection))
 
 	log.Fatal("error starting server:", router.Run(config.GetString("server.port")))
 }

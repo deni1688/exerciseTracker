@@ -22,7 +22,12 @@ func main() {
 		log.Fatal("error creating new repository:", err)
 	}
 
-	br := rabbitmq.NewProducer()
+	conn, ch, err := rabbitmq.Connect()
+	if err != nil {
+		log.Fatal("error initializing connection or channel:", err)
+	}
+
+	br := rabbitmq.NewProducer(conn, ch)
 	defer br.Close()
 	es := domain.NewExerciseService(er, br)
 

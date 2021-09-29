@@ -19,16 +19,16 @@ var (
 )
 
 type Exercise struct {
-	ID        string    `json:"id,omitempty"`
-	Category  string    `json:"category"`
-	Name      string    `json:"name"`
-	Weight    float32   `json:"weight"`
-	Sets      int32     `json:"sets"`
-	Unit      string    `json:"unit"`
-	Value     float32   `json:"value"`
-	StartDate time.Time `json:"start_date,omitempty"`
-	EndDate   time.Time `json:"end_date,omitempty"`
-	Created   time.Time `json:"created,omitempty"`
+	ID        string     `json:"id,omitempty"`
+	Category  string     `json:"category"`
+	Name      string     `json:"name"`
+	Weight    float32    `json:"weight"`
+	Sets      int32      `json:"sets"`
+	Unit      string     `json:"unit"`
+	Value     float32    `json:"value"`
+	StartDate *time.Time `json:"start_date,omitempty"`
+	EndDate   *time.Time `json:"end_date,omitempty"`
+	Created   *time.Time `json:"created,omitempty"`
 }
 
 type ExerciseRequest struct {
