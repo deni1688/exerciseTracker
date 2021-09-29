@@ -1,8 +1,8 @@
 package rest
 
 import (
-	"deni1688/exercise_tracker/domain"
 	"encoding/json"
+	"github.com/deni1688/exercise_tracker/domain"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

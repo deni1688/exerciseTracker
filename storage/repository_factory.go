@@ -1,10 +1,10 @@
 package storage
 
 import (
-	"deni1688/exercise_tracker/domain"
-	"deni1688/exercise_tracker/storage/jsondb"
-	"deni1688/exercise_tracker/storage/sqlite"
 	"errors"
+	"github.com/deni1688/exercise_tracker/domain"
+	"github.com/deni1688/exercise_tracker/storage/jsondb"
+	"github.com/deni1688/exercise_tracker/storage/sqlite"
 )
 
 func NewExerciseRepository(driver string) (domain.ExerciseRepository, error) {

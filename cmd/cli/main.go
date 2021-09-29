@@ -1,11 +1,11 @@
 package main
 
 import (
-	"deni1688/exercise_tracker/cli"
-	"deni1688/exercise_tracker/config"
-	"deni1688/exercise_tracker/domain"
-	"deni1688/exercise_tracker/rabbitmq"
-	"deni1688/exercise_tracker/storage"
+	"github.com/deni1688/exercise_tracker/cli"
+	"github.com/deni1688/exercise_tracker/config"
+	"github.com/deni1688/exercise_tracker/domain"
+	"github.com/deni1688/exercise_tracker/rabbitmq"
+	"github.com/deni1688/exercise_tracker/storage"
 	"log"
 )
 

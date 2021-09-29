@@ -1,7 +1,7 @@
 package cli
 
 import (
-	"deni1688/exercise_tracker/domain"
+	"github.com/deni1688/exercise_tracker/domain"
 	"github.com/spf13/cobra"
 )
 

@@ -1,8 +1,8 @@
 package rabbitmq
 
 import (
-	"deni1688/exercise_tracker/domain"
 	"encoding/json"
+	"github.com/deni1688/exercise_tracker/domain"
 	"github.com/streadway/amqp"
 	"log"
 )

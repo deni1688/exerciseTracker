@@ -1,7 +1,7 @@
 package rest
 
 import (
-	"deni1688/exercise_tracker/domain"
+	"github.com/deni1688/exercise_tracker/domain"
 )
 
 func GetHandlerFor(service domain.ExerciseService, resource string) Handler {

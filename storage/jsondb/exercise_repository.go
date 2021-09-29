@@ -1,11 +1,11 @@
 package jsondb
 
 import (
-	"deni1688/exercise_tracker/config"
-	"deni1688/exercise_tracker/domain"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/deni1688/exercise_tracker/config"
+	"github.com/deni1688/exercise_tracker/domain"
 	"time"
 
 	"github.com/google/uuid"
