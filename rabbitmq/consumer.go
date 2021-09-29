@@ -14,7 +14,7 @@ func NewConsumer(conn *amqp.Connection, ch *amqp.Channel) *Consumer {
 	return &Consumer{conn, ch}
 }
 
-func (c *Consumer) GetMessages(exerciseEvent string) (<-chan amqp.Delivery, error) {
+func (c *Consumer) GetMessages(ee ExerciseEventType) (<-chan amqp.Delivery, error) {
 	q, err := c.channel.QueueDeclare(
 		"",
 		false,
@@ -29,7 +29,7 @@ func (c *Consumer) GetMessages(exerciseEvent string) (<-chan amqp.Delivery, erro
 
 	err = c.channel.QueueBind(
 		q.Name,
-		exerciseEvent,
+		string(ee),
 		exerciseExchange,
 		false,
 		nil)

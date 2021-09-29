@@ -3,7 +3,7 @@ package main
 import (
 	"deni1688/exercise_tracker/config"
 	"deni1688/exercise_tracker/domain"
-	rabbitmq2 "deni1688/exercise_tracker/rabbitmq"
+	"deni1688/exercise_tracker/rabbitmq"
 	"encoding/json"
 	"log"
 )
@@ -16,13 +16,13 @@ func main() {
 		log.Fatal("error loading the config file:", err)
 	}
 
-	conn, ch, err := rabbitmq2.Connect()
+	conn, ch, err := rabbitmq.Connect()
 	if err != nil {
 		log.Fatal("error initializing connection or channel:", err)
 	}
 
-	messages, err := rabbitmq2.NewConsumer(conn, ch).
-		GetMessages(rabbitmq2.CreatedExercise)
+	messages, err := rabbitmq.NewConsumer(conn, ch).
+		GetMessages(rabbitmq.CreatedExercise)
 	if err != nil {
 		log.Fatal("error consuming queue messages:", err)
 	}

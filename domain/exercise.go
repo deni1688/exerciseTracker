@@ -32,12 +32,12 @@ type Exercise struct {
 }
 
 type ExerciseRequest struct {
-	Category  string    `json:"category"`
-	Name      string    `json:"name"`
-	Weight    float32   `json:"weight"`
-	Sets      int32     `json:"sets"`
-	Unit      string    `json:"unit"`
-	Value     float32   `json:"value"`
+	Category string  `json:"category"`
+	Name     string  `json:"name"`
+	Weight   float32 `json:"weight"`
+	Sets     int32   `json:"sets"`
+	Unit     string  `json:"unit"`
+	Value    float32 `json:"value"`
 }
 
 func newExercise(
@@ -62,18 +62,23 @@ func (ex *Exercise) Validate() error {
 	if ex.Category == "" {
 		return ErrCategoryRequired
 	}
+
 	if !strings.Contains(strings.Join(ValidCategories, ""), ex.Category) {
 		return ErrInvalidCategory
 	}
+
 	if ex.Weight <= 0 {
 		return ErrInvalidWeight
 	}
+
 	if ex.Unit == "" {
 		return ErrInvalidUnit
 	}
+
 	if ex.Sets < 0 {
 		return ErrInvalidSets
 	}
+
 	if ex.Value <= 0 {
 		return ErrInvalidValue
 	}

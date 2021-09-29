@@ -12,7 +12,7 @@ type ExerciseEventType string
 const (
 	UpdatedExercise  ExerciseEventType = "exercise.updated"
 	CreatedExercise  ExerciseEventType = "exercise.created"
-	exerciseExchange string = "exercise.events"
+	exerciseExchange string            = "exercise.events"
 )
 
 type Producer struct {
@@ -39,12 +39,14 @@ func NewProducer(conn *amqp.Connection, ch *amqp.Channel) *Producer {
 func (p *Producer) PublishCreated(ex *domain.Exercise) error {
 	return p.publish(ex, CreatedExercise)
 }
+
 func (p *Producer) PublishUpdated(ex *domain.Exercise) error {
 	return p.publish(ex, UpdatedExercise)
 }
+
 func (p *Producer) publish(ex *domain.Exercise, ee ExerciseEventType) error {
-	bt, _ := json.Marshal(ex)
-	log.Println(ee)
+	body, _ := json.Marshal(ex)
+
 	return p.channel.Publish(
 		exerciseExchange,
 		string(ee),
@@ -52,7 +54,7 @@ func (p *Producer) publish(ex *domain.Exercise, ee ExerciseEventType) error {
 		false,
 		amqp.Publishing{
 			ContentType: "application/json",
-			Body:        bt,
+			Body:        body,
 		},
 	)
 
