@@ -6,7 +6,7 @@ import (
 )
 
 func Connect() (*amqp.Connection, *amqp.Channel, error) {
-	conn, err := amqp.Dial(config.GetString("broker.uri"))
+	conn, err := amqp.Dial(config.GetString("brokers.rabbitmq.uri"))
 	if err != nil {
 		return nil, nil, err
 	}

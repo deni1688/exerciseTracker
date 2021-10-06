@@ -20,7 +20,7 @@ type Producer struct {
 	channel    *amqp.Channel
 }
 
-func NewProducer(conn *amqp.Connection, ch *amqp.Channel) *Producer {
+func NewRabbitMQProducer(conn *amqp.Connection, ch *amqp.Channel) *Producer {
 	if err := ch.ExchangeDeclare(
 		exerciseExchange,
 		"topic",

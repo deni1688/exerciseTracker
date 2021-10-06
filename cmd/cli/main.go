@@ -27,7 +27,7 @@ func main() {
 		log.Fatal("error initializing connection or channel:", err)
 	}
 
-	br := rabbitmq.NewProducer(conn, ch)
+	br := rabbitmq.NewRabbitMQProducer(conn, ch)
 	defer br.Close()
 	es := domain.NewExerciseService(er, br)
 

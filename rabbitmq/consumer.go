@@ -10,7 +10,7 @@ type Consumer struct {
 	channel    *amqp.Channel
 }
 
-func NewConsumer(conn *amqp.Connection, ch *amqp.Channel) *Consumer {
+func NewRabbitMQConsumer(conn *amqp.Connection, ch *amqp.Channel) *Consumer {
 	return &Consumer{conn, ch}
 }
 
